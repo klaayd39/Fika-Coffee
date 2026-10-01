@@ -52,7 +52,7 @@ export default function Menu() {
         <div
           role="group"
           aria-label="Filter menu by category"
-          className="mt-14 flex flex-wrap gap-x-5 gap-y-1 md:mt-16"
+          className="mt-14 flex flex-wrap gap-x-5 gap-y-3 md:mt-16"
         >
           {filters.map((filter) => {
             const selected = filter.id === activeId
@@ -85,7 +85,7 @@ export default function Menu() {
                   id={section.id}
                   hidden={!shown}
                   aria-labelledby={`${section.id}-heading`}
-                  className="scroll-mt-24"
+                  className="scroll-mt-[calc(4.75rem+env(safe-area-inset-top,0px))] md:scroll-mt-24"
                 >
                   <h2
                     id={`${section.id}-heading`}

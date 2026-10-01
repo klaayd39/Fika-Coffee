@@ -7,7 +7,7 @@ export default function Logo({ className }) {
     <Link
       to="/"
       aria-label={`${brand.name} — home`}
-      className={`inline-flex ${className ?? ''}`}
+      className={className ? `inline-flex ${className}` : 'inline-flex'}
     >
       <picture>
         <source type="image/avif" srcSet="/images/brand/logo.avif" />

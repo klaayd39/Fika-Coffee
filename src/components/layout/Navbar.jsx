@@ -12,6 +12,13 @@ const desktopLinkClass =
 const mobileLinkClass =
   'tap-target flex min-h-12 items-center font-sans text-lg font-normal text-ink-soft transition-colors duration-300 ease-out hover:text-ink [&.active]:text-ink'
 
+const mobileNavOrder = [
+  navItems.find((item) => item.to === '/menu'),
+  ...navItems.filter((item) => item.to !== '/menu'),
+].filter(Boolean)
+
+const headerOffset = 'calc(4.75rem + env(safe-area-inset-top, 0px))'
+
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -28,7 +35,7 @@ export default function Navbar() {
 
   useEffect(() => {
     setOpen(false)
-  }, [location.pathname])
+  }, [location.pathname, location.hash, location.key])
 
   useEffect(() => {
     if (!open) return
@@ -50,7 +57,7 @@ export default function Navbar() {
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
 
-    panelRef.current?.querySelector('a, button')?.focus()
+    panelRef.current?.focus()
 
     return () => {
       window.removeEventListener('keydown', onKeyDown)
@@ -64,24 +71,24 @@ export default function Navbar() {
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 transition-[background-color,border-color] duration-300 ease-out',
+        'sticky top-0 z-[60] pt-[env(safe-area-inset-top,0px)] transition-[background-color,border-color] duration-300 ease-out',
         chrome ? 'border-b border-line/80 bg-canvas/95' : 'border-b border-transparent bg-canvas/80',
       )}
     >
       <a
         href="#main"
-        className="sr-only rounded-md focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-[60] focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-on-primary"
+        className="sr-only rounded-md focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-[70] focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-on-primary"
       >
         Skip to content
       </a>
 
       <nav
         aria-label="Primary"
-        className="content-shell flex h-[4.75rem] items-center justify-between gap-8 md:h-20"
+        className="content-shell relative flex h-[4.75rem] w-full min-w-0 items-center gap-4 md:h-20 md:gap-8"
       >
-        <Logo />
+        <Logo className="shrink-0" />
 
-        <div className="hidden items-center gap-10 lg:gap-12 md:flex">
+        <div className="hidden items-center gap-10 md:ml-auto md:flex lg:gap-12">
           <ul className="flex items-center gap-7 lg:gap-9">
             {navItems.map((item) => (
               <li key={item.to}>
@@ -116,7 +123,7 @@ export default function Navbar() {
           aria-expanded={open}
           aria-controls="mobile-menu"
           onClick={() => setOpen((value) => !value)}
-          className="tap-target inline-flex size-12 items-center justify-center text-ink transition-opacity duration-300 ease-out hover:opacity-70 md:hidden"
+          className="tap-target -mr-2 ml-auto inline-flex size-12 shrink-0 items-center justify-center text-ink transition-opacity duration-300 ease-out hover:opacity-70 md:hidden"
         >
           <span aria-hidden="true" className="relative block h-3.5 w-6">
             <span
@@ -141,53 +148,61 @@ export default function Navbar() {
         </button>
       </nav>
 
-      <div
-        id="mobile-menu"
-        ref={panelRef}
-        inert={!open}
-        aria-hidden={!open}
-        className={cn(
-          'grid overflow-hidden transition-[grid-template-rows,opacity] duration-300 ease-out md:hidden',
-          open ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0',
-        )}
-      >
-        <div className="min-h-0 overflow-hidden">
-          <nav aria-label="Mobile" className="border-t border-line/80 px-gutter py-6">
-            <ul className="flex flex-col gap-1">
-              {[navItems.find((item) => item.to === '/menu'), ...navItems.filter((item) => item.to !== '/menu')]
-                .filter(Boolean)
-                .map((item) => (
-                <li key={item.to}>
-                  <NavLink
-                    to={item.to}
-                    end={item.end}
+      {open ? (
+        <>
+          <button
+            type="button"
+            tabIndex={-1}
+            aria-hidden="true"
+            className="fixed inset-0 z-[55] bg-espresso-950/25 md:hidden"
+            style={{ top: headerOffset }}
+            onClick={() => setOpen(false)}
+          />
+          <div
+            id="mobile-menu"
+            ref={panelRef}
+            tabIndex={-1}
+            className="fixed inset-x-0 z-[58] max-h-[calc(100dvh-4.75rem-env(safe-area-inset-top,0px))] overflow-y-auto overscroll-contain border-b border-line/80 bg-canvas shadow-[0_18px_40px_-24px_rgb(27_20_19/0.35)] md:hidden"
+            style={{ top: headerOffset }}
+          >
+            <nav
+              aria-label="Mobile"
+              className="content-shell py-6 pb-[max(1.5rem,env(safe-area-inset-bottom,0px))]"
+            >
+              <ul className="flex flex-col gap-1">
+                {mobileNavOrder.map((item) => (
+                  <li key={item.to}>
+                    <NavLink
+                      to={item.to}
+                      end={item.end}
+                      onClick={() => setOpen(false)}
+                      onPointerEnter={() => preloadPage(item.to)}
+                      onFocus={() => preloadPage(item.to)}
+                      className={cn(mobileLinkClass, item.to === '/menu' && 'text-ink')}
+                    >
+                      {item.label}
+                    </NavLink>
+                  </li>
+                ))}
+                <li className="pt-4">
+                  <Button
+                    as={Link}
+                    to="/contact#visit"
+                    variant="secondary"
+                    arrow
+                    className="tap-target"
                     onClick={() => setOpen(false)}
-                    onPointerEnter={() => preloadPage(item.to)}
-                    onFocus={() => preloadPage(item.to)}
-                    className={cn(mobileLinkClass, item.to === '/menu' && 'text-ink')}
+                    onPointerEnter={() => preloadPage('/contact')}
+                    onFocus={() => preloadPage('/contact')}
                   >
-                    {item.label}
-                  </NavLink>
+                    Visit us
+                  </Button>
                 </li>
-              ))}
-              <li className="pt-4">
-                <Button
-                  as={Link}
-                  to="/contact#visit"
-                  variant="secondary"
-                  arrow
-                  className="tap-target"
-                  onClick={() => setOpen(false)}
-                  onPointerEnter={() => preloadPage('/contact')}
-                  onFocus={() => preloadPage('/contact')}
-                >
-                  Visit us
-                </Button>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
+              </ul>
+            </nav>
+          </div>
+        </>
+      ) : null}
     </header>
   )
 }

@@ -43,12 +43,16 @@ export default function LocationSection({ id = 'location', className, imageFirst
     <section
       id={id}
       aria-labelledby={headingId}
-      className={cn('scroll-mt-24 section-py-tight md:scroll-mt-28 md:section-py-roomy', className)}
+      className={cn(
+        'scroll-mt-[calc(4.75rem+env(safe-area-inset-top,0px))] section-py-tight md:scroll-mt-28 md:section-py-roomy',
+        className,
+      )}
     >
       <div
         className={cn(
           'md:grid md:grid-cols-2 md:items-stretch md:gap-12 lg:gap-20',
-          imageFirst && 'md:[&>figure]:order-1 md:[&>div]:order-2',
+          imageFirst &&
+            'max-md:flex max-md:flex-col max-md:[&>div]:order-2 max-md:[&>div]:mt-10 max-md:[&>figure]:order-1 max-md:[&>figure]:mt-0 md:[&>div]:order-2 md:[&>figure]:order-1',
         )}
       >
         <div

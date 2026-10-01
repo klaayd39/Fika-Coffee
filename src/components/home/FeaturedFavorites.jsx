@@ -36,7 +36,7 @@ export default function FeaturedFavorites() {
                 >
                   <FeaturedDrinkCard
                     product={product}
-                    layout={isLead ? 'hero' : 'standard'}
+                    layout={isLead ? 'hero' : 'side'}
                     imageSizes={isLead ? LEAD_IMAGE_SIZES : SIDE_IMAGE_SIZES}
                   />
                 </li>

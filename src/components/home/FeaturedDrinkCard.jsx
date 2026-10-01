@@ -26,6 +26,7 @@ export default function FeaturedDrinkCard({
   const to = menuHref(product)
   const price = formatPrice(product, missingPrice)
   const isHero = layout === 'hero'
+  const isSide = layout === 'side'
 
   return (
     <article className={cn('flex h-full flex-col', className)}>
@@ -41,6 +42,9 @@ export default function FeaturedDrinkCard({
               ? (cropAspect[product.image.cropAspect] ?? cropAspect.productPortrait)
               : cropAspect.productPortrait,
             isHero && product.image && 'lg:min-h-[36rem]',
+            isSide &&
+              product.image &&
+              'min-h-[min(72vw,22rem)] sm:min-h-[min(65vw,24rem)] lg:min-h-0',
           )}
         >
           {product.image ? (

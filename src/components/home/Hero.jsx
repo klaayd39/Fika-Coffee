@@ -34,14 +34,14 @@ export default function Hero() {
         />
       </figure>
 
-      <div className="tone-inverse absolute inset-0 flex items-end px-gutter pb-14 pt-24 sm:pb-16 sm:pt-28 md:items-center md:pb-20 md:pt-0">
+      <div className="tone-inverse absolute inset-0 flex items-end px-gutter pb-[max(3.5rem,env(safe-area-inset-bottom,0px))] pt-[max(6rem,calc(4.75rem+env(safe-area-inset-top,0px)))] sm:pb-16 sm:pt-28 md:items-center md:pb-20 md:pt-0">
         <div className="content-shell w-full">
           <div className="max-w-xl md:max-w-2xl">
             <p className="text-eyebrow text-cream-200/90">{hero.eyebrow}</p>
 
             <h1
               id="hero-heading"
-              className="text-hero-display mt-4 max-w-[12ch] text-cream-50 sm:mt-5 md:max-w-[12ch]"
+              className="text-hero-display mt-4 max-w-[15ch] text-balance text-cream-50 sm:mt-5 md:max-w-[12ch]"
             >
               {hero.headline}
             </h1>
@@ -51,7 +51,7 @@ export default function Hero() {
             </p>
 
             <div className="mt-8 flex w-full max-w-sm flex-col gap-3 sm:mt-9 sm:max-w-none sm:flex-row sm:items-center">
-              <Button as={Link} to="/menu" size="md" arrow className="w-full sm:w-auto">
+              <Button as={Link} to="/menu" size="md" arrow className="tap-target w-full sm:w-auto">
                 {hero.primaryCta}
               </Button>
               <Button
@@ -59,7 +59,7 @@ export default function Hero() {
                 to="#home-location"
                 variant="secondaryInverse"
                 arrow
-                className="w-full sm:w-auto"
+                className="tap-target w-full sm:w-auto"
               >
                 {hero.secondaryCta}
               </Button>

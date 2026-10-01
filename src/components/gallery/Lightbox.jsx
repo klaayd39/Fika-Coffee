@@ -60,7 +60,7 @@ export default function Lightbox({ photos, index, onClose, onStep }) {
     >
       {photo && (
         <div
-          className="flex h-full items-center justify-center p-4 sm:p-8"
+          className="flex h-full items-center justify-center p-4 pt-[max(3.5rem,env(safe-area-inset-top,0px))] pb-[max(5.5rem,env(safe-area-inset-bottom,0px))] sm:p-8 sm:pb-8 sm:pt-8"
           onClick={(event) => {
             if (event.target === event.currentTarget) onClose()
           }}
@@ -78,7 +78,7 @@ export default function Lightbox({ photos, index, onClose, onStep }) {
                 height={photo.height}
                 alt={photo.alt}
                 decoding="async"
-                className="max-h-[min(78dvh,52rem)] w-auto max-w-full object-contain"
+                className="max-h-[min(58dvh,52rem)] w-auto max-w-full object-contain sm:max-h-[min(78dvh,52rem)]"
               />
             </picture>
             <figcaption
@@ -98,14 +98,17 @@ export default function Lightbox({ photos, index, onClose, onStep }) {
       <button
         ref={closeRef}
         type="button"
-        className={cn(controlClass, 'absolute right-4 top-4 z-10 sm:right-8 sm:top-8')}
+        className={cn(
+          controlClass,
+          'absolute right-4 top-[max(1rem,env(safe-area-inset-top,0px))] z-10 sm:right-8 sm:top-8',
+        )}
         onClick={onClose}
       >
         Close
       </button>
 
       {photos.length > 1 ? (
-        <div className="absolute inset-x-4 bottom-6 z-10 flex items-center justify-between gap-4 sm:inset-x-8 sm:bottom-8">
+        <div className="absolute inset-x-4 bottom-[max(1.5rem,env(safe-area-inset-bottom,0px))] z-10 flex items-center justify-between gap-4 sm:inset-x-8 sm:bottom-8">
           <button type="button" className={controlClass} onClick={() => onStep(-1)}>
             Previous
           </button>

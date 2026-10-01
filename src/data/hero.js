@@ -7,8 +7,7 @@ export const hero = {
   headline: brand.tagline,
   supporting:
     'Take a moment to pause here and say yes to good matcha and more time offline!',
-  primaryCta: 'View our menu',
-  secondaryCta: 'Visit Us',
+  cta: 'Visit Us',
   image: {
     alt: 'Fika Coffee in Malaybalay City: Pause Here on the wall, the pink mirror nook, and matcha at the counter.',
     width: 1920,

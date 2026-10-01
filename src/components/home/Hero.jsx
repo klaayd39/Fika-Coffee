@@ -12,7 +12,7 @@ export default function Hero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="hero-bleed relative isolate"
+      className="hero-bleed relative w-full max-w-none"
     >
       <figure className={`hero-bleed__figure relative overflow-hidden ${cropAspect.hero}`}>
         <picture className="absolute inset-0 block size-full">
@@ -57,24 +57,15 @@ export default function Hero() {
               {hero.supporting}
             </p>
 
-            <div className="mt-10 flex w-full max-w-md flex-col gap-4 sm:mt-11 sm:max-w-none sm:flex-row sm:items-center sm:gap-5">
+            <div className="mt-10 sm:mt-11">
               <Button
                 as={Link}
-                to="/menu"
+                to="#contact"
                 size="lg"
                 arrow
                 className="tap-target min-h-12 w-full px-7 text-sm sm:w-auto"
               >
-                {hero.primaryCta}
-              </Button>
-              <Button
-                as={Link}
-                to="#contact"
-                variant="secondaryInverse"
-                arrow
-                className="tap-target min-h-12 w-full text-sm sm:w-auto"
-              >
-                {hero.secondaryCta}
+                {hero.cta}
               </Button>
             </div>
           </div>

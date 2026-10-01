@@ -35,11 +35,11 @@ export default function Hero() {
           </picture>
           <div
             aria-hidden="true"
-            className="absolute inset-0 bg-gradient-to-r from-espresso-950/62 via-espresso-950/28 to-espresso-950/5 lg:via-espresso-950/18 lg:to-transparent"
+            className="absolute inset-0 bg-gradient-to-r from-espresso-950/82 via-espresso-950/48 to-espresso-950/15 lg:via-espresso-950/32 lg:to-espresso-950/5"
           />
           <div
             aria-hidden="true"
-            className="absolute inset-0 bg-gradient-to-t from-espresso-950/60 via-espresso-950/20 to-transparent md:from-espresso-950/18 md:via-transparent"
+            className="absolute inset-0 bg-gradient-to-t from-espresso-950/75 via-espresso-950/30 to-transparent md:from-espresso-950/35 md:via-espresso-950/10 md:to-transparent"
           />
         </figure>
 
@@ -59,8 +59,8 @@ export default function Hero() {
                 {hero.supporting}
               </p>
 
-              <div className="hero-actions hero-actions__dock mt-10 sm:mt-11">
-                <OpenStatus className="hero-actions__status" />
+              <div className="hero-actions hero-actions--dock mt-10 sm:mt-11">
+                <OpenStatus />
 
                 <Button
                   as={Link}

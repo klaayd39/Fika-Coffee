@@ -43,8 +43,6 @@ export default function OpenStatus({ tone = 'inverse', className, linkToHours = 
   const isInverse = tone === 'inverse' || tone !== 'default'
   const eyebrowClass = isInverse ? 'text-cream-100/55' : 'text-ink-muted'
   const detailClass = isInverse ? 'text-cream-100/80' : 'text-ink-soft'
-  const hintClass = isInverse ? 'text-cream-100/50' : 'text-ink-muted'
-
   const body = (
     <>
       <span
@@ -83,17 +81,6 @@ export default function OpenStatus({ tone = 'inverse', className, linkToHours = 
         </span>
       </span>
 
-      {linkToHours ? (
-        <span
-          aria-hidden="true"
-          className={cn(
-            'text-2xs hidden shrink-0 font-medium uppercase tracking-[0.12em] sm:inline',
-            hintClass,
-          )}
-        >
-          View
-        </span>
-      ) : null}
     </>
   )
 

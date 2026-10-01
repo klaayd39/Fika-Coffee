@@ -18,6 +18,6 @@ export const hero = {
     srcSetWebp: widths.map((w) => `/images/hero/editorial-${w}.webp ${w}w`).join(', '),
     srcSetJpg: widths.map((w) => `/images/hero/editorial-${w}.jpg ${w}w`).join(', '),
     sizes: '100vw',
-    objectPosition: '38% 50%',
+    objectPosition: '50% 42%',
   },
 }

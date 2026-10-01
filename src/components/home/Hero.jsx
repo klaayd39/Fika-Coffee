@@ -10,8 +10,13 @@ export default function Hero() {
   const { image } = hero
 
   return (
-    <section aria-labelledby="hero-heading" className="relative isolate">
-      <figure className={`relative w-full overflow-hidden ${cropAspect.hero}`}>
+    <section
+      aria-labelledby="hero-heading"
+      className="relative isolate w-full overflow-x-clip"
+    >
+      <figure
+        className={`relative mx-[calc(50%-50vw)] w-screen max-w-none overflow-hidden ${cropAspect.hero}`}
+      >
         <picture className="absolute inset-0 block size-full">
           <source type="image/avif" srcSet={image.srcSetAvif} sizes={HERO_SIZES_ATTR} />
           <source type="image/webp" srcSet={image.srcSetWebp} sizes={HERO_SIZES_ATTR} />
@@ -25,7 +30,7 @@ export default function Hero() {
             fetchPriority="high"
             decoding="async"
             style={objectPositionStyle(image)}
-            className={coverImageClass}
+            className={`${coverImageClass} min-h-full min-w-full`}
           />
         </picture>
         <div

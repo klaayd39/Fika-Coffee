@@ -15,7 +15,7 @@ export default function Hero() {
       aria-labelledby="hero-heading"
       className="hero-bleed relative w-full max-w-none"
     >
-      <div className="hero-bleed__stage hero-bleed__stage--below-nav relative w-full md:mt-0">
+      <div className="hero-bleed__stage relative w-full">
         <figure className={`hero-bleed__figure relative overflow-hidden ${cropAspect.hero}`}>
           <picture className="absolute inset-0 block size-full">
             <source type="image/avif" srcSet={image.srcSetAvif} sizes={HERO_SIZES_ATTR} />
@@ -50,7 +50,7 @@ export default function Hero() {
 
               <h1
                 id="hero-heading"
-                className="text-hero-display mt-4 max-w-[16ch] text-balance text-cream-50 drop-shadow-[0_2px_24px_rgb(27_20_19/0.55)] sm:mt-5 sm:max-w-[17ch] md:mt-6 md:max-w-[13ch]"
+                className="text-hero-display mt-4 w-full max-w-none text-balance text-cream-50 drop-shadow-[0_2px_24px_rgb(27_20_19/0.55)] sm:mt-5 md:mt-6 md:max-w-[13ch]"
               >
                 {hero.headline}
               </h1>

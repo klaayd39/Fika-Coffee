@@ -414,6 +414,10 @@
   }
 }
 
+.home-page {
+  overflow-x: clip;
+}
+
 /* Homepage hero — full width of the page shell (no vw/svw centering; breaks on iOS Safari). */
 @utility hero-bleed {
   width: 100%;
@@ -433,12 +437,6 @@
   overflow: hidden;
 }
 
-@media (max-width: 767px) {
-  .hero-bleed__stage--below-nav {
-    margin-top: var(--header-offset);
-  }
-}
-
 .hero-bleed__content {
   position: absolute;
   inset: 0;
@@ -446,6 +444,56 @@
   align-items: flex-end;
   padding-top: clamp(1.25rem, 4vw, 2rem);
   padding-bottom: max(2.25rem, env(safe-area-inset-bottom, 0px));
+}
+
+@media (max-width: 767px) {
+  .hero-bleed {
+    overflow-x: clip;
+  }
+
+  .hero-bleed__stage {
+    min-height: 100dvh;
+  }
+
+  .hero-bleed__content {
+    padding-top: calc(var(--header-offset) + 0.35rem);
+    padding-bottom: max(1.75rem, env(safe-area-inset-bottom, 0px));
+  }
+
+  .hero-bleed__content .content-shell {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .hero-copy {
+    width: 100%;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .hero-copy::before {
+    inset: -0.875rem -0.5rem;
+    border-radius: 1rem;
+  }
+
+  .hero-copy .text-hero-display {
+    font-size: clamp(2rem, 10vw, 2.75rem);
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+  }
+
+  .site-header__inner {
+    gap: 0.5rem;
+  }
+
+  .site-header__inner .site-logo {
+    min-width: 0;
+    max-width: calc(100% - 3.25rem);
+  }
+
+  .site-logo__img {
+    max-width: min(8.25rem, 38vw);
+  }
 }
 
 @media (min-width: 640px) {
@@ -1194,6 +1242,22 @@
   max-height: 36rem;
 }
 
+@media (max-width: 767px) {
+  .gallery-coverflow {
+    padding-block: 1.75rem 1.25rem;
+  }
+
+  .gallery-coverflow__track {
+    height: min(50svh, 21rem);
+    max-height: 21rem;
+  }
+
+  .featured-favorite--compact {
+    grid-template-columns: minmax(5rem, 28%) minmax(0, 1fr);
+    padding: 0.625rem 0.75rem;
+  }
+}
+
 .gallery-coverflow__slide {
   position: absolute;
   left: 50%;
@@ -1304,12 +1368,6 @@
 .hero-copy .text-eyebrow {
   font-size: 0.8125rem;
   letter-spacing: 0.14em;
-}
-
-.hero-copy .text-hero-display {
-  font-size: clamp(2.375rem, 11vw, 3.75rem);
-  line-height: 1.04;
-  letter-spacing: -0.022em;
 }
 
 .hero-copy .text-body-lg {

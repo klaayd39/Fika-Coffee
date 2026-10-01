@@ -20,7 +20,7 @@ const desktopLinkDefault =
   `${desktopLinkBase} text-ink hover:text-espresso-950 hover:decoration-espresso-300/80 [&.active]:text-espresso-950 [&.active]:decoration-espresso-800/80`
 
 const desktopLinkInverse =
-  `${desktopLinkBase} text-cream-100 shadow-[0_1px_3px_rgb(27_20_19/0.65)] hover:text-cream-50 hover:decoration-cream-200/70 [&.active]:text-cream-50 [&.active]:decoration-cream-100/85 [&.active]:shadow-[0_1px_4px_rgb(27_20_19/0.75)]`
+  `${desktopLinkBase} text-cream-100 [text-shadow:0_1px_2px_rgb(27_20_19/0.72)] hover:text-cream-50 hover:decoration-cream-200/70 [&.active]:text-cream-50 [&.active]:decoration-cream-100/85 [&.active]:[text-shadow:0_1px_3px_rgb(27_20_19/0.85)]`
 
 const mobileLinkClass =
   'tap-target flex min-h-12 items-center font-sans text-lg font-normal text-ink transition-colors duration-300 ease-out hover:text-espresso-950 [&.active]:font-medium [&.active]:text-espresso-950'
@@ -236,9 +236,9 @@ export default function Navbar() {
           aria-controls="mobile-menu"
           onClick={() => setOpen((value) => !value)}
           className={cn(
-            'site-header__menu-button tap-target relative z-[2] -mr-2 ml-auto inline-flex size-12 shrink-0 items-center justify-center transition-opacity duration-300 ease-out hover:opacity-70',
+            'site-header__menu-button tap-target relative z-[2] ml-auto inline-flex size-12 shrink-0 items-center justify-center transition-opacity duration-300 ease-out hover:opacity-70',
             navInverse && !menuOpenOnMobile
-              ? 'text-cream-50 shadow-[0_1px_3px_rgb(27_20_19/0.65)]'
+              ? 'text-cream-50 [filter:drop-shadow(0_1px_1px_rgb(27_20_19/0.55))]'
               : 'text-ink',
           )}
         >

@@ -9,7 +9,7 @@ import { seoPages } from '../data/seo.js'
 
 export default function Home() {
   return (
-    <div className="w-full max-w-none bg-canvas">
+    <div className="home-page w-full max-w-none overflow-x-clip bg-canvas">
       <Seo {...seoPages.home} />
       <Hero />
       <FeaturedFavorites />

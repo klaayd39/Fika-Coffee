@@ -50,6 +50,7 @@ export default function LocationSection({ id = 'location', className, imageFirst
         )}
       >
         <div
+          data-reveal
           className={cn(
             'flex max-w-lg flex-col justify-center px-gutter md:py-8',
             imageFirst
@@ -105,7 +106,7 @@ export default function LocationSection({ id = 'location', className, imageFirst
           <DirectionsLink className="mt-10" />
         </div>
 
-        <figure className="mt-12 md:mt-0">
+        <figure data-reveal className="mt-12 md:mt-0">
           <div
             className={cn(
               'overflow-hidden bg-espresso-100 md:min-h-full',

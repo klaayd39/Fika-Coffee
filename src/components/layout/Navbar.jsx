@@ -11,6 +11,7 @@ import {
   navLinkIsActive,
   resolveHomeNavSpy,
 } from '../../utils/navItems.js'
+import { scrollInstant } from '../../utils/scroll.js'
 import Logo from './Logo.jsx'
 
 const desktopLinkBase =
@@ -80,12 +81,7 @@ export default function Navbar() {
       return
     }
 
-    const scrollY = window.scrollY
-    scrollLockSnapshotRef.current = {
-      scrollY,
-      pathname: window.location.pathname,
-      hash: window.location.hash,
-    }
+    scrollLockSnapshotRef.current = window.scrollY
 
     const onKeyDown = (event) => {
       if (event.key === 'Escape') {
@@ -118,14 +114,8 @@ export default function Navbar() {
       document.body.style.left = ''
       document.body.style.right = ''
       document.body.style.width = ''
-      const snap = scrollLockSnapshotRef.current
-      const samePlace =
-        snap &&
-        window.location.pathname === snap.pathname &&
-        window.location.hash === snap.hash
-      if (samePlace) {
-        window.scrollTo({ top: snap.scrollY, left: 0, behavior: 'auto' })
-      }
+      const scrollY = scrollLockSnapshotRef.current
+      if (scrollY != null) scrollInstant(scrollY)
       scrollLockSnapshotRef.current = null
     }
   }, [open])

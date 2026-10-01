@@ -66,7 +66,7 @@ export default function Gallery() {
     <div className="tone-inverse min-h-dvh bg-espresso-950 text-cream-50">
       <Seo {...seoPages.gallery} />
 
-      <div className="page-top content-shell pb-6 pt-2 text-center md:pb-8">
+      <div data-reveal className="page-top content-shell pb-6 pt-2 text-center md:pb-8">
         <h1 className="text-display-xl text-balance text-cream-50">Moments at Our Café</h1>
         {brand.facebook ? (
           <p className="mt-8">

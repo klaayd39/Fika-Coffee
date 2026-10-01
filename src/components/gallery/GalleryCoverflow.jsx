@@ -79,7 +79,7 @@ export default function GalleryCoverflow({ photos, activeIndex, onActiveChange, 
   if (!photos.length) return null
 
   return (
-    <div className="gallery-coverflow">
+    <div data-reveal className="gallery-coverflow">
       <div
         ref={stageRef}
         className="gallery-coverflow__stage"
@@ -155,10 +155,6 @@ export default function GalleryCoverflow({ photos, activeIndex, onActiveChange, 
           })}
         </ul>
       </div>
-
-      <p className="gallery-coverflow__hint text-center text-sm text-cream-200/75">
-        Swipe to browse · Focus the carousel for arrow keys · Tap the center photo to enlarge
-      </p>
     </div>
   )
 }

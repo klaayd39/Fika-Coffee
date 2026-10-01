@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { brand } from '../../data/brand.js'
+import { brand, siteCredit } from '../../data/brand.js'
 import { addressLines } from '../../data/contact.js'
 import { navItems } from '../../data/navigation.js'
 import { navItemTo } from '../../utils/navItems.js'
@@ -10,10 +10,40 @@ const year = new Date().getFullYear()
 const footerLinkClass =
   'text-cream-200 transition-colors hover:text-cream-50 focus-visible:outline-offset-4'
 
+const creditMarkClass =
+  'font-medium tracking-[0.14em] text-cream-100/95 uppercase decoration-cream-200/35 underline-offset-[0.35em] transition-[color,text-decoration-color] duration-300'
+
+function SiteCredit() {
+  const { byline, studio, href } = siteCredit
+  const mark = href ? (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`${creditMarkClass} underline hover:text-cream-50 hover:decoration-cream-100/70`}
+    >
+      {studio}
+      <span className="sr-only"> (opens in a new tab)</span>
+    </a>
+  ) : (
+    <span className={creditMarkClass}>{studio}</span>
+  )
+
+  return (
+    <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs leading-relaxed text-cream-400">
+      <span className="text-eyebrow text-[0.625rem] text-espresso-400">Website</span>
+      <span aria-hidden="true" className="text-espresso-600">·</span>
+      <span>
+        {byline} {mark}
+      </span>
+    </p>
+  )
+}
+
 export default function Footer() {
   return (
     <footer className="tone-inverse border-t border-espresso-800 bg-espresso-950 text-cream-100">
-      <div className="content-shell py-10 md:py-12">
+      <div data-reveal className="content-shell py-10 md:py-12">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
           <div className="max-w-xs">
             <Logo className="[&_img]:h-8 [&_img]:md:h-9" />
@@ -64,21 +94,22 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 flex flex-col gap-3 border-t border-espresso-800/80 pt-6 text-xs text-espresso-300 sm:flex-row sm:items-center sm:justify-between">
-          {brand.facebook ? (
-            <a
-              href={brand.facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`text-sm ${footerLinkClass}`}
-            >
-              Facebook
-              <span className="sr-only"> (opens in a new tab)</span>
-            </a>
-          ) : (
-            <span />
-          )}
-          <p>
+        <div className="mt-8 flex flex-col gap-4 border-t border-espresso-800/80 pt-6 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+          <div className="flex flex-col gap-3">
+            {brand.facebook ? (
+              <a
+                href={brand.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`text-sm ${footerLinkClass}`}
+              >
+                Facebook
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+            ) : null}
+            <SiteCredit />
+          </div>
+          <p className="text-xs text-espresso-300 sm:text-right">
             © {year} {brand.name}
           </p>
         </div>

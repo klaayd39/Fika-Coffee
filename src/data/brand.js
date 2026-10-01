@@ -35,6 +35,13 @@ export const brand = {
   mapPin: null,
 }
 
+/** Footer site credit — set `href` when a portfolio or studio URL is available. */
+export const siteCredit = {
+  byline: 'Developed by',
+  studio: 'KJPY',
+  href: null,
+}
+
 export const needsConfirmation = [
   'Monday hours',
   'Phone, email, Instagram, website',

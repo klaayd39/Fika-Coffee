@@ -21,7 +21,7 @@ export default function FeaturedFavorites() {
   return (
     <section aria-labelledby="favorites-heading" className="featured-favorites band-edge bg-band-warm">
       <div className="content-shell section-py-tight lg:content-shell-wide">
-        <header className="featured-favorites__intro">
+        <header data-reveal className="featured-favorites__intro">
           <div className="grid gap-5 md:gap-6 lg:grid-cols-12 lg:items-end lg:gap-x-10 xl:gap-x-12">
             <div className="lg:col-span-7">
               <Eyebrow className="featured-favorites__eyebrow text-ink-soft">Our favorites</Eyebrow>
@@ -36,14 +36,14 @@ export default function FeaturedFavorites() {
         </header>
 
         <div className="featured-favorites__layout">
-          <div className="featured-favorites__lead">
+          <div data-reveal className="featured-favorites__lead">
             <FeaturedDrinkCard product={lead} layout="hero" index={0} imageSizes={LEAD_IMAGE_SIZES} />
           </div>
 
           {rest.length > 0 ? (
             <ul role="list" className="featured-favorites__stack list-none">
               {rest.map((product, offset) => (
-                <li key={product.id}>
+                <li key={product.id} data-reveal>
                   <FeaturedDrinkCard
                     product={product}
                     layout="compact"
@@ -56,7 +56,7 @@ export default function FeaturedFavorites() {
           ) : null}
         </div>
 
-        <footer className="featured-favorites__footer flex flex-col gap-5 border-t border-line/70 md:flex-row md:items-center md:justify-between md:gap-6">
+        <footer data-reveal className="featured-favorites__footer flex flex-col gap-5 border-t border-line/70 md:flex-row md:items-center md:justify-between md:gap-6">
           <p className="text-body max-w-md text-ink-muted">
             Menu and prices are at the counter — tell us what you&apos;re in the mood for.
           </p>

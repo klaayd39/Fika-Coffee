@@ -1,59 +1,69 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-
-function scrollToTop() {
-  window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
-  document.documentElement.scrollTop = 0
-  document.body.scrollTop = 0
-}
+import { scrollInstant } from '../../utils/scroll.js'
 
 function unlockBodyScrollLock() {
   document.documentElement.classList.remove('nav-scroll-lock')
-  document.body.style.position = ''
-  document.body.style.top = ''
-  document.body.style.left = ''
-  document.body.style.right = ''
-  document.body.style.width = ''
+  const { style } = document.body
+  style.position = ''
+  style.top = ''
+  style.left = ''
+  style.right = ''
+  style.width = ''
 }
 
-function scrollToHashTarget(hash) {
-  const id = decodeURIComponent(hash.slice(1))
-  const target = document.getElementById(id)
-  if (!target) return false
+function hashId(hash) {
+  return decodeURIComponent(hash.slice(1))
+}
 
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' })
+function headerOffset() {
+  const header = document.querySelector('.site-header')
+  return header ? header.getBoundingClientRect().height : 0
+}
+
+function scrollToHash(hash, behavior) {
+  const target = document.getElementById(hashId(hash))
+  if (!target) return false
+  // One offset only. scroll-margin and scroll-padding would stack inside scrollIntoView.
+  const top = Math.max(0, target.getBoundingClientRect().top + window.scrollY - headerOffset())
+  if (behavior === 'auto') scrollInstant(top)
+  else window.scrollTo({ top, left: 0, behavior: 'smooth' })
   return true
 }
 
-/** Scroll to top on route change; hash links scroll to in-page targets after paint. */
+/** Jump to the top on a new page. Smooth-scroll once to in-page hash targets. */
 export default function RouteScroll() {
-  const { pathname, hash } = useLocation()
+  const { pathname, hash, key } = useLocation()
 
   useEffect(() => {
     unlockBodyScrollLock()
 
-    if (!hash) {
-      scrollToTop()
-      return
-    }
-
     let cancelled = false
-    const attempt = () => {
-      if (cancelled) return
-      scrollToHashTarget(hash)
+    let started = false
+    const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+
+    const start = () => {
+      if (cancelled || started) return
+      if (!hash) {
+        scrollInstant(0)
+        started = true
+        return
+      }
+      if (scrollToHash(hash, behavior)) started = true
     }
 
-    attempt()
-    const frame = requestAnimationFrame(attempt)
-    const timers = [50, 150, 400].map((ms) => window.setTimeout(attempt, ms))
+    // Wait until menu scroll-lock cleanup has restored the real scroll position.
+    const frame = requestAnimationFrame(() => {
+      requestAnimationFrame(start)
+    })
+    const retries = [80, 200, 500].map((ms) => window.setTimeout(start, ms))
 
     return () => {
       cancelled = true
       cancelAnimationFrame(frame)
-      timers.forEach((id) => window.clearTimeout(id))
+      retries.forEach((id) => window.clearTimeout(id))
     }
-  }, [pathname, hash])
+  }, [pathname, hash, key])
 
   return null
 }

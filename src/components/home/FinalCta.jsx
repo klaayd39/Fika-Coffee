@@ -11,7 +11,7 @@ export default function FinalCta() {
       className="band-edge bg-band-cream"
     >
       <div className="home-final-cta content-shell py-14 md:py-28 lg:py-32">
-        <div className="max-w-prose md:max-w-xl">
+        <div data-reveal className="max-w-prose md:max-w-xl">
           <DisplayTitle id="final-cta-heading" size="lg" className="leading-[1.1]">
             {heading}
           </DisplayTitle>

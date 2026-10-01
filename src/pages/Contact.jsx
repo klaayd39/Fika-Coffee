@@ -19,7 +19,7 @@ export default function Contact() {
         aria-labelledby="reach-heading"
         className="band-edge bg-canvas pb-24 pt-14 md:pb-32 md:pt-20"
       >
-        <div className="content-shell">
+        <div data-reveal className="content-shell">
           <DisplayTitle id="reach-heading" size="md">
             More ways to reach us
           </DisplayTitle>

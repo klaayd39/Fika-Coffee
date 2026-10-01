@@ -36,7 +36,7 @@ export default function Menu() {
     <div className="bg-canvas">
       <Seo {...seoPages.menu} />
       <div className="content-shell page-top pb-10 md:pb-14">
-        <header className="max-w-prose">
+        <header data-reveal className="max-w-prose">
           <DisplayTitle as="h1" size="page">
             Menu
           </DisplayTitle>
@@ -86,13 +86,14 @@ export default function Menu() {
                 >
                   <h2
                     id={`${section.id}-heading`}
+                    data-reveal
                     className="text-display-md"
                   >
                     {section.label}
                   </h2>
                   <ul className="mt-10 grid list-none grid-cols-1 gap-y-16 sm:grid-cols-2 sm:gap-x-12 sm:gap-y-20 lg:mt-12 lg:gap-x-16 lg:gap-y-24">
                     {section.products.map((product) => (
-                      <li key={product.id} id={product.id}>
+                      <li key={product.id} id={product.id} data-reveal>
                         <ProductCard product={product} />
                       </li>
                     ))}

@@ -14,7 +14,7 @@ export default function NotFound() {
         path={pathname}
         index={false}
       />
-      <div className="content-shell section-py-roomy">
+      <div data-reveal className="content-shell section-py-roomy">
         <Eyebrow>404</Eyebrow>
         <DisplayTitle as="h1" size="page" className="mt-4">
           Page not found

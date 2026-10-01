@@ -73,7 +73,7 @@ export default function AboutShowcase({ embedded = false }) {
           </figure>
         ))}
 
-        <header className="flatlay-stage__title">
+        <header data-reveal className="flatlay-stage__title">
           <DisplayTitle
             as={embedded ? 'h2' : 'h1'}
             id={embedded ? 'home-about-title' : undefined}
@@ -88,14 +88,14 @@ export default function AboutShowcase({ embedded = false }) {
           </BodyText>
         </header>
 
-        <div className="flatlay-stage__lead max-w-xl">
+        <div data-reveal className="flatlay-stage__lead max-w-xl">
           <Eyebrow className="text-ink-muted">{aboutPageLeadEyebrow}</Eyebrow>
           <DisplayTitle size="xl" className="flatlay-stage__headline mt-4 md:mt-5">
             {aboutPageLeadHeadline}
           </DisplayTitle>
         </div>
 
-        <div className="flatlay-stage__copy max-w-lg lg:max-w-xl">
+        <div data-reveal className="flatlay-stage__copy max-w-lg lg:max-w-xl">
           <DisplayTitle size="md" className="flatlay-stage__subhead">
             {aboutPageRightTitle}
           </DisplayTitle>

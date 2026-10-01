@@ -46,20 +46,21 @@ export default function Hero() {
         <div className="hero-bleed__content tone-inverse">
           <div className="content-shell w-full">
             <div className="hero-copy max-w-2xl md:max-w-3xl">
-              <p className="text-eyebrow text-cream-200/90">{hero.eyebrow}</p>
+              <p data-reveal className="text-eyebrow text-cream-200/90">{hero.eyebrow}</p>
 
               <h1
                 id="hero-heading"
+                data-reveal
                 className="text-hero-display mt-4 w-full max-w-none text-balance text-cream-50 drop-shadow-[0_2px_24px_rgb(27_20_19/0.55)] sm:mt-5 md:mt-6 md:max-w-[13ch]"
               >
                 {hero.headline}
               </h1>
 
-              <p className="hero-copy__support text-body-lg mt-4 max-w-lg text-cream-200/95 sm:mt-5 md:mt-6 md:max-w-xl">
+              <p data-reveal className="hero-copy__support text-body-lg mt-4 max-w-lg text-cream-200/95 sm:mt-5 md:mt-6 md:max-w-xl">
                 {hero.supporting}
               </p>
 
-              <div className="hero-actions hero-actions--dock mt-8 sm:mt-9 md:mt-10">
+              <div data-reveal className="hero-actions hero-actions--dock mt-8 sm:mt-9 md:mt-10">
                 <OpenStatus />
 
                 <Button

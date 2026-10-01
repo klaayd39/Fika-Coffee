@@ -30,7 +30,7 @@ export default function HomeGallerySection() {
       aria-labelledby="home-gallery-heading"
       className="scroll-mt-header band-edge tone-inverse bg-espresso-950 text-cream-50 md:scroll-mt-28"
     >
-      <div className="content-shell pb-3 pt-9 text-center md:pb-6 md:pt-14">
+      <div data-reveal className="content-shell pb-3 pt-9 text-center md:pb-6 md:pt-14">
         <Eyebrow className="text-cream-200/75">Gallery</Eyebrow>
         <DisplayTitle id="home-gallery-heading" as="h2" size="xl" className="mt-4 text-balance text-cream-50">
           Moments at Our Café

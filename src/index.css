@@ -837,9 +837,18 @@
   }
 
   .flatlay-stage__body {
-    justify-self: start;
+    justify-self: center;
     padding-inline: 0;
     max-width: 36rem;
+    text-align: center;
+    background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .flatlay-stage__prose {
+    text-align: center;
+    hyphens: none;
   }
 
   .flatlay-prop {

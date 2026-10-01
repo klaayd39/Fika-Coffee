@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/favicon-192.png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="preload"
+      href="/fonts/fraunces-500-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <script>
+      if (location.pathname === '/') {
+        var hero = document.createElement('link')
+        hero.rel = 'preload'
+        hero.as = 'image'
+        hero.type = 'image/avif'
+        hero.setAttribute(
+          'imagesrcset',
+          '/images/hero/editorial-480.avif 480w, /images/hero/editorial-768.avif 768w',
+        )
+        hero.setAttribute('imagesizes', '100vw')
+        hero.setAttribute('fetchpriority', 'high')
+        document.head.appendChild(hero)
+      }
+    </script>
+    <title>Fika Coffee · Cafe in Malaybalay City</title>
+    <meta
+      name="description"
+      content="Fika Coffee is a cafe on San Isidro Extension in Malaybalay City, Bukidnon. Pause here for coffee, matcha, and a table that stays open late."
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

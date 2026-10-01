@@ -288,23 +288,63 @@
 }
 
 .site-header__links {
-  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
   align-items: center;
   gap: clamp(1.25rem, 2.4vw, 2.25rem);
 }
 
+/* Breakpoints here — do not set display on .site-header__links globally (breaks `hidden`). */
+@media (max-width: 767px) {
+  .site-header__links {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .site-header__links {
+    display: flex;
+    margin-left: auto;
+  }
+
+  .site-header__menu-button {
+    display: none;
+  }
+}
+
 .site-header__backdrop {
   position: fixed;
+  z-index: 55;
   inset-inline: 0;
   bottom: 0;
   top: var(--header-offset);
+  border: 0;
+  padding: 0;
+  background: rgb(27 20 19 / 0.35);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .site-header__menu-panel {
   position: fixed;
+  z-index: 56;
   inset-inline: 0;
   top: var(--header-offset);
+  width: 100%;
   max-height: calc(100dvh - var(--header-offset));
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  border-bottom: 1px solid color-mix(in oklab, var(--color-line) 80%, transparent);
+  background-color: var(--color-canvas);
+  box-shadow: 0 18px 40px -24px rgb(27 20 19 / 0.35);
+}
+
+.site-header__menu-nav a.active {
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, var(--color-espresso-800) 55%, transparent);
+  text-underline-offset: 0.35em;
 }
 
 .scroll-mt-header {
@@ -1368,9 +1408,13 @@
     text-size-adjust: 100%;
   }
 
-  html.nav-scroll-lock,
+  html.nav-scroll-lock {
+    overflow: hidden;
+  }
+
   html.nav-scroll-lock body {
     overflow: hidden;
+    touch-action: none;
   }
 
   @media (prefers-reduced-motion: reduce) {

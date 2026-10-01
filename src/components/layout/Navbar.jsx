@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Link, useLocation } from 'react-router-dom'
 import { navItems } from '../../data/navigation.js'
 import { preloadPage } from '../../routes.js'
@@ -22,7 +23,7 @@ const desktopLinkInverse =
   `${desktopLinkBase} text-cream-100 shadow-[0_1px_3px_rgb(27_20_19/0.65)] hover:text-cream-50 hover:decoration-cream-200/70 [&.active]:text-cream-50 [&.active]:decoration-cream-100/85 [&.active]:shadow-[0_1px_4px_rgb(27_20_19/0.75)]`
 
 const mobileLinkClass =
-  'tap-target flex min-h-12 items-center font-sans text-lg font-normal text-ink-soft transition-colors duration-300 ease-out hover:text-ink [&.active]:text-ink'
+  'tap-target flex min-h-12 items-center font-sans text-lg font-normal text-ink transition-colors duration-300 ease-out hover:text-espresso-950 [&.active]:font-medium [&.active]:text-espresso-950'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
@@ -78,6 +79,8 @@ export default function Navbar() {
       return
     }
 
+    const scrollY = window.scrollY
+
     const onKeyDown = (event) => {
       if (event.key === 'Escape') {
         setOpen(false)
@@ -92,6 +95,11 @@ export default function Navbar() {
     window.addEventListener('keydown', onKeyDown)
     desktop.addEventListener('change', onBreakpoint)
     document.documentElement.classList.add('nav-scroll-lock')
+    document.body.style.position = 'fixed'
+    document.body.style.top = `-${scrollY}px`
+    document.body.style.left = '0'
+    document.body.style.right = '0'
+    document.body.style.width = '100%'
 
     panelRef.current?.focus()
 
@@ -99,6 +107,12 @@ export default function Navbar() {
       window.removeEventListener('keydown', onKeyDown)
       desktop.removeEventListener('change', onBreakpoint)
       document.documentElement.classList.remove('nav-scroll-lock')
+      document.body.style.position = ''
+      document.body.style.top = ''
+      document.body.style.left = ''
+      document.body.style.right = ''
+      document.body.style.width = ''
+      window.scrollTo({ top: scrollY, left: 0, behavior: 'auto' })
     }
   }, [open])
 
@@ -109,18 +123,77 @@ export default function Navbar() {
   }, [])
 
   const chrome = scrolled || open || onInverseBand
+  const menuOpenOnMobile = open
+
+  const mobileMenu =
+    menuOpenOnMobile && typeof document !== 'undefined'
+      ? createPortal(
+          <>
+            <button
+              type="button"
+              tabIndex={-1}
+              aria-hidden="true"
+              className="site-header__backdrop md:hidden"
+              onClick={() => setOpen(false)}
+            />
+            <div
+              id="mobile-menu"
+              ref={panelRef}
+              tabIndex={-1}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Site menu"
+              className="site-header__menu-panel md:hidden"
+            >
+              <nav
+                aria-label="Mobile"
+                className="content-shell site-header__menu-nav py-5 pb-[max(1.25rem,env(safe-area-inset-bottom,0px))]"
+              >
+                <ul className="flex flex-col gap-0.5">
+                  {navItems.map((item) => (
+                    <li key={item.label}>
+                      <Link
+                        to={navItemTo(item)}
+                        aria-current={
+                          navLinkIsActive(item, location, homeNavSpy) ? 'page' : undefined
+                        }
+                        onClick={() => setOpen(false)}
+                        onPointerEnter={() => preloadPage(navItemPreloadPath(item))}
+                        onFocus={() => preloadPage(navItemPreloadPath(item))}
+                        className={cn(
+                          mobileLinkClass,
+                          navLinkIsActive(item, location, homeNavSpy) && 'active',
+                        )}
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
+          </>,
+          document.body,
+        )
+      : null
 
   return (
+    <>
     <header
       className={cn(
-        'fixed inset-x-0 top-0 z-[60] pt-[env(safe-area-inset-top,0px)] transition-[background-color,border-color,backdrop-filter,box-shadow] duration-300 ease-out',
-        navInverse
-          ? 'border-b border-cream-50/15 bg-espresso-950/55 shadow-[0_1px_0_rgb(0_0_0/0.25)] backdrop-blur-md supports-[backdrop-filter]:bg-espresso-950/48'
-          : onInverseBand
+        'site-header fixed inset-x-0 top-0 z-[60] pt-[env(safe-area-inset-top,0px)] transition-[background-color,border-color,backdrop-filter,box-shadow] duration-300 ease-out',
+        menuOpenOnMobile &&
+          'border-b border-line/80 bg-canvas shadow-[0_1px_0_rgb(27_20_19/0.04)] backdrop-blur-none',
+        !menuOpenOnMobile &&
+          navInverse &&
+          'border-b border-cream-50/15 bg-espresso-950/55 shadow-[0_1px_0_rgb(0_0_0/0.25)] backdrop-blur-md supports-[backdrop-filter]:bg-espresso-950/48',
+        !menuOpenOnMobile &&
+          !navInverse &&
+          (onInverseBand
             ? 'border-b border-line/80 bg-canvas shadow-[0_1px_0_rgb(27_20_19/0.04)]'
             : chrome
               ? 'border-b border-line/80 bg-canvas/95 backdrop-blur-md supports-[backdrop-filter]:bg-canvas/90'
-              : 'border-b border-transparent bg-canvas/80 backdrop-blur-sm supports-[backdrop-filter]:bg-canvas/75',
+              : 'border-b border-transparent bg-canvas/80 backdrop-blur-sm supports-[backdrop-filter]:bg-canvas/75'),
       )}
     >
       <a
@@ -130,10 +203,13 @@ export default function Navbar() {
         Skip to content
       </a>
 
-      <nav aria-label="Primary" className="content-shell site-header__inner relative">
-        <Logo className="shrink-0" variant={navInverse ? 'inverse' : 'default'} />
+      <nav aria-label="Primary" className="content-shell site-header__inner relative z-[1]">
+        <Logo
+          className="shrink-0"
+          variant={navInverse && !menuOpenOnMobile ? 'inverse' : 'default'}
+        />
 
-        <ul className="site-header__links hidden md:ml-auto md:flex">
+        <ul className="site-header__links">
           {navItems.map((item) => (
             <li key={item.label}>
               <Link
@@ -160,8 +236,10 @@ export default function Navbar() {
           aria-controls="mobile-menu"
           onClick={() => setOpen((value) => !value)}
           className={cn(
-            'tap-target -mr-2 ml-auto inline-flex size-12 shrink-0 items-center justify-center transition-opacity duration-300 ease-out hover:opacity-70 md:hidden',
-            navInverse ? 'text-cream-50 shadow-[0_1px_3px_rgb(27_20_19/0.65)]' : 'text-ink',
+            'site-header__menu-button tap-target relative z-[2] -mr-2 ml-auto inline-flex size-12 shrink-0 items-center justify-center transition-opacity duration-300 ease-out hover:opacity-70',
+            navInverse && !menuOpenOnMobile
+              ? 'text-cream-50 shadow-[0_1px_3px_rgb(27_20_19/0.65)]'
+              : 'text-ink',
           )}
         >
           <span aria-hidden="true" className="relative block h-3.5 w-6">
@@ -186,49 +264,8 @@ export default function Navbar() {
           </span>
         </button>
       </nav>
-
-      {open ? (
-        <>
-          <button
-            type="button"
-            tabIndex={-1}
-            aria-hidden="true"
-            className="site-header__backdrop z-[55] bg-espresso-950/25 md:hidden"
-            onClick={() => setOpen(false)}
-          />
-          <div
-            id="mobile-menu"
-            ref={panelRef}
-            tabIndex={-1}
-            className="site-header__menu-panel z-[58] overflow-y-auto overscroll-contain border-b border-line/80 bg-canvas shadow-[0_18px_40px_-24px_rgb(27_20_19/0.35)] md:hidden"
-          >
-            <nav
-              aria-label="Mobile"
-              className="content-shell py-6 pb-[max(1.5rem,env(safe-area-inset-bottom,0px))]"
-            >
-              <ul className="flex flex-col gap-1">
-                {navItems.map((item) => (
-                  <li key={item.label}>
-                    <Link
-                      to={navItemTo(item)}
-                      aria-current={navLinkIsActive(item, location, homeNavSpy) ? 'page' : undefined}
-                      onClick={() => setOpen(false)}
-                      onPointerEnter={() => preloadPage(navItemPreloadPath(item))}
-                      onFocus={() => preloadPage(navItemPreloadPath(item))}
-                      className={cn(
-                        mobileLinkClass,
-                        navLinkIsActive(item, location, homeNavSpy) && 'active',
-                      )}
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </div>
-        </>
-      ) : null}
     </header>
+    {mobileMenu}
+    </>
   )
 }

@@ -40,7 +40,7 @@ export default function EditorialSplit({
   const headingId = id ? `${id}-heading` : undefined
 
   return (
-    <section aria-labelledby={headingId} className={cn('section-py-grand', className)}>
+    <section aria-labelledby={headingId} className={cn('section-py-roomy md:section-py-grand', className)}>
       <div className="md:grid md:grid-cols-2 md:items-center md:gap-16 lg:gap-24">
         <figure className={cn(reverse ? 'md:order-2' : 'md:order-1')}>
           <div
@@ -84,8 +84,8 @@ export default function EditorialSplit({
             'max-w-lg',
             reverse ? 'md:order-1' : 'md:order-2',
             reverse
-              ? 'px-gutter pt-10 md:py-8 md:inset-content-start md:pr-16 lg:pr-24'
-              : 'px-gutter pt-10 md:py-8 md:inset-content-end md:pl-16 lg:pl-24',
+              ? 'px-gutter pt-8 md:py-8 md:inset-content-start md:pr-16 lg:pr-24'
+              : 'px-gutter pt-8 md:py-8 md:inset-content-end md:pl-16 lg:pl-24',
           )}
         >
           <Eyebrow className="text-ink-muted">{eyebrow}</Eyebrow>

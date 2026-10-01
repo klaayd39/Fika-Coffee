@@ -84,7 +84,7 @@ export default function Gallery() {
   return (
     <main className="bg-canvas">
       <Seo {...seoPages.gallery} />
-      <div className="content-shell pt-16 pb-10 md:pt-28 md:pb-14">
+      <div className="content-shell page-top pb-10 md:pb-14">
         <header className="max-w-prose">
           <DisplayTitle as="h1" size="page">
             Gallery
@@ -98,7 +98,7 @@ export default function Gallery() {
         <div
           role="group"
           aria-label="Filter gallery by category"
-          className="mt-14 flex flex-wrap gap-x-6 gap-y-3 md:mt-16"
+          className="mt-10 flex flex-wrap gap-x-4 gap-y-3 md:mt-16 md:gap-x-6"
         >
           {filters.map((filter) => {
             const selected = filter.id === activeId
@@ -120,7 +120,7 @@ export default function Gallery() {
         </p>
       </div>
 
-      <div className="band-edge bg-band-warm pb-24 pt-12 md:pb-40 md:pt-20">
+      <div className="band-edge bg-band-warm pb-16 pt-10 md:pb-40 md:pt-20">
         <div className="content-shell-wide">
           {visible.length ? (
             <GalleryEditorialGrid spreads={spreads} onOpen={openPhoto} />

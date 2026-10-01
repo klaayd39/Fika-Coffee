@@ -38,7 +38,7 @@ export default function Menu() {
   return (
     <main className="bg-canvas">
       <Seo {...seoPages.menu} />
-      <div className="content-shell pt-16 pb-10 md:pt-28 md:pb-14">
+      <div className="content-shell page-top pb-10 md:pb-14">
         <header className="max-w-prose">
           <DisplayTitle as="h1" size="page">
             Menu
@@ -52,7 +52,7 @@ export default function Menu() {
         <div
           role="group"
           aria-label="Filter menu by category"
-          className="mt-14 flex flex-wrap gap-x-5 gap-y-3 md:mt-16"
+          className="mt-10 flex flex-wrap gap-x-4 gap-y-3 md:mt-16 md:gap-x-5"
         >
           {filters.map((filter) => {
             const selected = filter.id === activeId
@@ -74,7 +74,7 @@ export default function Menu() {
         </p>
       </div>
 
-      <div className="band-edge bg-surface pb-24 pt-12 md:pb-40 md:pt-16">
+      <div className="band-edge bg-surface pb-16 pt-10 md:pb-40 md:pt-16">
         <div className="content-shell-wide">
           <div className="flex flex-col gap-24 md:gap-32">
             {menuSections.map((section) => {

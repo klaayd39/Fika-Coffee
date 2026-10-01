@@ -35,7 +35,7 @@ export default function AtmosphereBand() {
         />
       </figure>
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 px-gutter pb-10 pt-16 sm:pb-12 md:pb-14 lg:pb-16">
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 pb-10 pt-16 sm:pb-12 md:pb-14 lg:pb-16">
         <div className="pointer-events-auto content-shell max-w-prose">
           <div className="max-w-md sm:max-w-lg">
             <DisplayTitle

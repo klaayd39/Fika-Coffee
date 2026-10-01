@@ -9,11 +9,11 @@ export default function Contact() {
   return (
     <main className="bg-canvas">
       <Seo {...seoPages.contact} />
-      <div className="content-shell pt-16 md:pt-24">
-        <h1 className="sr-only">Contact {brand.name}</h1>
-      </div>
+      <h1 className="sr-only">Contact {brand.name}</h1>
 
-      <LocationSection id="visit" className="band-edge bg-surface pt-4 md:pt-0" />
+      <div className="page-top" aria-hidden="true" />
+
+      <LocationSection id="visit" className="band-edge bg-surface pt-0 md:pt-0" />
 
       <section
         aria-labelledby="reach-heading"

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { brand } from '../../data/brand.js'
 import { addressLines } from '../../data/contact.js'
 import { navItems } from '../../data/navigation.js'
+import { navItemTo } from '../../utils/navItems.js'
 import Logo from './Logo.jsx'
 
 const year = new Date().getFullYear()
@@ -21,9 +22,9 @@ export default function Footer() {
         <nav aria-label="Footer" className="mt-12">
           <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
             {navItems.map((item) => (
-              <li key={item.to}>
+              <li key={item.label}>
                 <Link
-                  to={item.to}
+                  to={navItemTo(item)}
                   className="text-cream-200 transition-colors hover:text-cream-50 focus-visible:outline-offset-4"
                 >
                   {item.label}

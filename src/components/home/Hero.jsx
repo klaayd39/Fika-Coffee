@@ -38,14 +38,14 @@ export default function Hero() {
         />
       </figure>
 
-      <div className="tone-inverse absolute inset-0 flex items-end px-gutter pb-[max(3.5rem,env(safe-area-inset-bottom,0px))] pt-[max(6rem,calc(4.75rem+env(safe-area-inset-top,0px)))] sm:pb-16 sm:pt-28 md:items-center md:pb-20 md:pt-0">
+      <div className="tone-inverse absolute inset-0 flex items-end pb-[max(3.5rem,env(safe-area-inset-bottom,0px))] pt-[max(6rem,calc(4.75rem+env(safe-area-inset-top,0px)))] sm:pb-16 sm:pt-28 md:items-center md:pb-20 md:pt-0">
         <div className="content-shell w-full">
           <div className="max-w-xl md:max-w-2xl">
             <p className="text-eyebrow text-cream-200/90">{hero.eyebrow}</p>
 
             <h1
               id="hero-heading"
-              className="text-hero-display mt-4 max-w-[15ch] text-balance text-cream-50 drop-shadow-[0_2px_24px_rgb(27_20_19/0.55)] sm:mt-5 md:max-w-[12ch]"
+              className="text-hero-display mt-4 max-w-[14ch] text-balance text-cream-50 drop-shadow-[0_2px_24px_rgb(27_20_19/0.55)] sm:mt-5 sm:max-w-[15ch] md:max-w-[12ch]"
             >
               {hero.headline}
             </h1>

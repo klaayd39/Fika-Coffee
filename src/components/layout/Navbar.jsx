@@ -88,7 +88,7 @@ export default function Navbar() {
 
       <nav
         aria-label="Primary"
-        className="content-shell relative flex h-[4.75rem] w-full min-w-0 items-center gap-4 md:h-20 md:gap-8"
+        className="content-shell relative flex h-[4.75rem] w-full min-w-0 items-center gap-3 md:h-20 md:gap-8"
       >
         <Logo className="shrink-0" />
 

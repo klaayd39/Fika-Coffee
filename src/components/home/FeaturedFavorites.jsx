@@ -26,7 +26,7 @@ export default function FeaturedFavorites() {
 
       {homeFeaturedDrinks.length ? (
         <div className="content-shell-wide pb-14 md:pb-24 lg:pb-32">
-          <ul className="grid list-none grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-x-12 lg:gap-y-20 xl:gap-x-16">
+          <ul className="grid list-none grid-cols-1 gap-10 sm:gap-12 lg:grid-cols-12 lg:gap-x-12 lg:gap-y-20 xl:gap-x-16">
             {homeFeaturedDrinks.map((product, index) => {
               const isLead = index === 0
               return (

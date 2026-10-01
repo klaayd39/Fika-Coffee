@@ -8,7 +8,7 @@ export default function AboutKnollBoard() {
   return (
     <section
       aria-labelledby="about-knoll-heading"
-      className="band-edge border-t border-line bg-white section-py-tight"
+      className="band-edge overflow-x-clip border-t border-line bg-white section-py-tight"
     >
       <div className="content-shell-wide">
         <div className="max-w-prose md:max-w-xl">
@@ -19,7 +19,10 @@ export default function AboutKnollBoard() {
           <BodyText className="mt-5">{aboutKnollIntro}</BodyText>
         </div>
 
-        <ul className="flatlay-knoll mt-12 list-none p-0 md:mt-16" aria-label="Menu in overhead flat lay">
+        <ul
+          className="flatlay-knoll mt-10 list-none p-0 sm:mt-12 md:mt-16"
+          aria-label="Menu in overhead flat lay"
+        >
           {aboutKnollItems.map((item) => (
             <li key={item.id}>
               <FlatLayTile item={item} />

@@ -180,6 +180,7 @@
   --shadow-lamp: 0 0 0 1px rgb(189 139 48 / 0.18), 0 14px 44px -10px rgb(189 139 48 / 0.38);
 
   --spacing-gutter: 1.5rem;
+  --header-height: 4.75rem;
   /* Legacy aliases — prefer section-py-* utilities for rhythm. */
   --spacing-section: 6rem;
   --spacing-section-lg: 9rem;
@@ -197,6 +198,29 @@
       var(--spacing-gutter),
       calc((100vw - var(--container-content)) / 2 + var(--spacing-gutter))
     );
+  }
+
+  @media (max-width: 479px) {
+    :root {
+      --spacing-gutter: 1.125rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    :root {
+      --header-height: 5rem;
+    }
+  }
+}
+
+/* Clear fixed header on inner pages (home hero handles its own inset). */
+.page-top {
+  padding-top: calc(var(--header-height) + env(safe-area-inset-top, 0px) + 1.25rem);
+}
+
+@media (min-width: 768px) {
+  .page-top {
+    padding-top: 7rem;
   }
 }
 
@@ -246,13 +270,14 @@
   grid-template-columns: 1fr 1fr;
   grid-template-areas:
     'title title'
-    'whisk matcha'
     'lead lead'
     'copy copy'
+    'whisk matcha'
     'beans samyang';
   align-items: center;
   justify-items: center;
-  gap: 1.5rem 1rem;
+  gap: 1.25rem 0.75rem;
+  overflow-x: clip;
   background-color: #fff;
 }
 
@@ -290,29 +315,71 @@
 
 .flatlay-prop--whisk {
   grid-area: whisk;
-  justify-self: start;
-  align-self: end;
+  justify-self: center;
+  align-self: center;
 }
 
 .flatlay-prop--matcha {
   grid-area: matcha;
-  justify-self: end;
-  align-self: start;
+  justify-self: center;
+  align-self: center;
 }
 
 .flatlay-prop--beans {
   grid-area: beans;
-  justify-self: start;
+  justify-self: center;
   align-self: center;
   width: min(100%, 8.5rem);
 }
 
 .flatlay-prop--samyang {
   grid-area: samyang;
-  justify-self: end;
-  align-self: end;
-  width: min(88%, 12.5rem);
-  margin-inline-end: 0.35rem;
+  justify-self: center;
+  align-self: center;
+  width: min(100%, 10.5rem);
+  margin-inline-end: 0;
+}
+
+@media (max-width: 899px) {
+  .flatlay-stage {
+    gap: 1.125rem 0.625rem;
+  }
+
+  .flatlay-stage__title {
+    width: 100%;
+  }
+
+  .flatlay-stage__lead,
+  .flatlay-stage__copy {
+    justify-self: stretch;
+    max-width: none;
+  }
+
+  .flatlay-prop {
+    width: min(100%, 8.75rem);
+  }
+
+  .flatlay-prop--beans {
+    width: min(100%, 7.5rem);
+  }
+
+  .flatlay-prop--samyang {
+    width: min(100%, 9.75rem);
+  }
+
+  .flatlay-prop img {
+    filter: drop-shadow(0 10px 14px rgb(27 20 19 / 0.08));
+  }
+}
+
+@media (max-width: 359px) {
+  .flatlay-prop {
+    width: min(100%, 7.75rem);
+  }
+
+  .flatlay-prop--samyang {
+    width: min(100%, 8.75rem);
+  }
 }
 
 @media (min-width: 900px) {
@@ -336,6 +403,27 @@
 
   .flatlay-prop--samyang {
     width: min(100%, 15.5rem);
+    margin-inline-end: 0.35rem;
+  }
+
+  .flatlay-prop--whisk {
+    justify-self: start;
+    align-self: end;
+  }
+
+  .flatlay-prop--matcha {
+    justify-self: end;
+    align-self: start;
+  }
+
+  .flatlay-prop--beans {
+    justify-self: start;
+    align-self: center;
+  }
+
+  .flatlay-prop--samyang {
+    justify-self: end;
+    align-self: end;
   }
 }
 
@@ -344,6 +432,12 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.75rem 1.25rem;
   background-color: #fff;
+}
+
+@media (max-width: 767px) {
+  .flatlay-knoll {
+    gap: 1.25rem 0.875rem;
+  }
 }
 
 @media (min-width: 768px) {
@@ -541,6 +635,11 @@
 }
 
 @media (min-width: 768px) {
+  .page-top.section-py-tight {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+
   .section-py-tight {
     padding-block: 7rem;
   }
@@ -560,6 +659,11 @@
 
 /* Slightly tighter vertical rhythm on small screens — still airy, not cramped. */
 @media (max-width: 767px) {
+  .page-top.section-py-tight {
+    padding-top: calc(var(--header-height) + env(safe-area-inset-top, 0px) + 1.5rem);
+    padding-bottom: 3.5rem;
+  }
+
   .section-py-tight {
     padding-block: 3.5rem;
   }
@@ -570,6 +674,34 @@
 
   .section-py-grand {
     padding-block: 4.75rem;
+  }
+
+  .text-page-title {
+    font-size: clamp(2.125rem, 9.5vw, 2.75rem);
+    line-height: 1.06;
+  }
+
+  .text-hero-display {
+    font-size: clamp(2.25rem, 10.5vw, 3rem);
+    letter-spacing: -0.022em;
+  }
+
+  .text-display-xl {
+    font-size: clamp(1.875rem, 8.25vw, 2.125rem);
+  }
+
+  .text-display-lg {
+    font-size: clamp(1.75rem, 7.5vw, 2rem);
+  }
+
+  .text-display-md {
+    font-size: clamp(1.5rem, 6.5vw, 1.875rem);
+    line-height: 1.14;
+  }
+
+  .text-body-lg {
+    font-size: 1rem;
+    line-height: 1.62;
   }
 }
 

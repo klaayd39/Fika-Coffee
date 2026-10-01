@@ -10,7 +10,7 @@ export default function FinalCta() {
       aria-labelledby="final-cta-heading"
       className="band-edge bg-band-cream"
     >
-      <div className="content-shell py-20 md:py-28 lg:py-32">
+      <div className="content-shell py-14 md:py-28 lg:py-32">
         <div className="max-w-prose md:max-w-xl">
           <DisplayTitle id="final-cta-heading" size="lg" className="leading-[1.1]">
             {heading}

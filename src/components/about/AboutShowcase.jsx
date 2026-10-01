@@ -55,7 +55,10 @@ export default function AboutShowcase({ embedded = false }) {
       id={embedded ? 'about' : undefined}
       aria-labelledby={embedded ? 'home-about-title' : undefined}
       aria-label={embedded ? undefined : 'About Fika Coffee'}
-      className={cn('band-edge bg-white section-py-tight md:section-py-roomy', embedded && scrollLandmark)}
+      className={cn(
+        'band-edge bg-white section-py-tight md:section-py-roomy',
+        embedded ? scrollLandmark : 'page-top',
+      )}
     >
       <div className="flatlay-stage content-shell-wide">
         {props.map((prop) => (

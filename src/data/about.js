@@ -1,6 +1,4 @@
 import { brand } from './brand.js'
-import { galleryPhotos } from './gallery.js'
-import { products } from './products.js'
 
 const widths = [480, 720, 960]
 
@@ -78,54 +76,3 @@ export const aboutShowcaseBackground = {
   objectPosition: 'center center',
 }
 
-const knollCategoryHref = {
-  Coffee: '/menu?category=coffee',
-  Matcha: '/menu?category=matcha',
-  Treats: '/menu?category=treats',
-  Drinks: '/menu?category=matcha',
-}
-
-function knollFromProduct(product) {
-  if (!product?.image) return null
-  return {
-    id: product.id,
-    label: product.name,
-    href: knollCategoryHref[product.category] ?? '/menu',
-    image: {
-      ...product.image,
-      sizes: '(min-width: 768px) 22vw, 45vw',
-      objectPosition: 'center 20%',
-    },
-  }
-}
-
-const matchaPour = galleryPhotos.find((photo) => photo.id === 'matcha-pour')
-
-/** Knolled overhead tiles — strict grid, top-down crops (flat-lay UI). */
-export const aboutKnollItems = [
-  knollFromProduct(products.find((p) => p.id === 'matcha-oat-latte')),
-  knollFromProduct(products.find((p) => p.id === 'biscoff-oat-latte')),
-  knollFromProduct(products.find((p) => p.id === 'cookie-box')),
-  matchaPour
-    ? {
-        id: 'matcha-pour',
-        label: 'Matcha at the counter',
-        href: '/menu?category=matcha',
-        image: {
-          alt: matchaPour.alt,
-          width: matchaPour.width,
-          height: matchaPour.height,
-          src: matchaPour.src,
-          srcSetAvif: matchaPour.srcSetAvif,
-          srcSetWebp: matchaPour.srcSetWebp,
-          srcSetJpg: matchaPour.srcSetJpg,
-          sizes: '(min-width: 768px) 22vw, 45vw',
-          objectPosition: 'center 35%',
-        },
-      }
-    : null,
-].filter(Boolean)
-
-export const aboutKnollHeading = 'Knolled at the counter'
-export const aboutKnollIntro =
-  'Overhead flat lay — matcha, coffee, and treats aligned the way we plate them at Fika.'

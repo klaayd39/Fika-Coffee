@@ -33,7 +33,7 @@ export default function Menu() {
       : `${visibleCount} ${visibleCount === 1 ? 'item' : 'items'} in ${activeLabel}`
 
   return (
-    <main className="bg-canvas">
+    <div className="bg-canvas">
       <Seo {...seoPages.menu} />
       <div className="content-shell page-top pb-10 md:pb-14">
         <header className="max-w-prose">
@@ -103,6 +103,6 @@ export default function Menu() {
           </div>
         </div>
       </div>
-    </main>
+    </div>
   )
 }

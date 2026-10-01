@@ -7,38 +7,37 @@ import Logo from './Logo.jsx'
 
 const year = new Date().getFullYear()
 
+const footerLinkClass =
+  'text-cream-200 transition-colors hover:text-cream-50 focus-visible:outline-offset-4'
+
 export default function Footer() {
   return (
     <footer className="tone-inverse border-t border-espresso-800 bg-espresso-950 text-cream-100">
-      <div className="content-shell py-16 md:py-20">
-        <div className="max-w-xl">
-          <Logo />
-          <p className="text-display-md mt-6 leading-snug text-cream-50">{brand.tagline}</p>
-          <p className="text-body mt-3 text-cream-200/90">
-            {brand.name} — a café on {brand.address.street}, {brand.address.city}.
-          </p>
+      <div className="content-shell py-10 md:py-12">
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
+          <div className="max-w-xs">
+            <Logo className="[&_img]:h-8 [&_img]:md:h-9" />
+            <p className="text-body mt-3 text-cream-200/90">{brand.tagline}</p>
+          </div>
+
+          <nav aria-label="Footer" className="sm:pt-1">
+            <ul className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
+              {navItems.map((item) => (
+                <li key={item.label}>
+                  <Link to={navItemTo(item)} className={footerLinkClass}>
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
 
-        <nav aria-label="Footer" className="mt-12">
-          <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-            {navItems.map((item) => (
-              <li key={item.label}>
-                <Link
-                  to={navItemTo(item)}
-                  className="text-cream-200 transition-colors hover:text-cream-50 focus-visible:outline-offset-4"
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <div className="mt-10 max-w-xl space-y-10 text-sm leading-relaxed text-cream-200">
+        <div className="mt-8 grid max-w-2xl gap-6 text-sm leading-snug text-cream-200 sm:grid-cols-2 sm:gap-x-10 md:mt-9">
           {addressLines ? (
             <div>
               <p className="text-eyebrow text-espresso-300">Address</p>
-              <address className="mt-3 not-italic">
+              <address className="mt-2 not-italic">
                 {addressLines.map((line) => (
                   <span key={line} className="block">
                     {line}
@@ -50,7 +49,7 @@ export default function Footer() {
 
           <div>
             <p className="text-eyebrow text-espresso-300">Opening hours</p>
-            <ul className="mt-3 space-y-1.5">
+            <ul className="mt-2 space-y-1">
               {brand.hours.map((row) => (
                 <li key={row.days}>
                   <span className="text-cream-100">{row.days}</span>
@@ -61,27 +60,28 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-            <p className="mt-2 text-cream-300">Monday — hours not published</p>
+            <p className="mt-1.5 text-xs text-cream-300">Monday — hours not published</p>
           </div>
         </div>
 
-        {brand.facebook ? (
-          <p className="mt-10 text-sm">
+        <div className="mt-8 flex flex-col gap-3 border-t border-espresso-800/80 pt-6 text-xs text-espresso-300 sm:flex-row sm:items-center sm:justify-between">
+          {brand.facebook ? (
             <a
               href={brand.facebook}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-cream-200 transition-colors hover:text-cream-50 focus-visible:outline-offset-4"
+              className={`text-sm ${footerLinkClass}`}
             >
               Facebook
               <span className="sr-only"> (opens in a new tab)</span>
             </a>
+          ) : (
+            <span />
+          )}
+          <p>
+            © {year} {brand.name}
           </p>
-        ) : null}
-
-        <p className="mt-12 text-xs text-espresso-300">
-          © {year} {brand.name}
-        </p>
+        </div>
       </div>
     </footer>
   )

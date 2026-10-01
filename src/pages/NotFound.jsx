@@ -7,7 +7,7 @@ export default function NotFound() {
   const { pathname } = useLocation()
 
   return (
-    <main className="bg-canvas">
+    <div className="bg-canvas">
       <Seo
         title={`Page not found · ${brand.name}`}
         description={`That page isn’t on the ${brand.name} site.`}
@@ -28,6 +28,6 @@ export default function NotFound() {
           </Button>
         </div>
       </div>
-    </main>
+    </div>
   )
 }

@@ -60,7 +60,7 @@ export default function Hero() {
             <div className="mt-10 sm:mt-11">
               <Button
                 as={Link}
-                to="#contact"
+                to={{ pathname: '/', hash: 'contact' }}
                 size="lg"
                 arrow
                 className="tap-target min-h-12 w-full px-7 text-sm sm:w-auto"

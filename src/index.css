@@ -476,39 +476,6 @@
   }
 }
 
-.flatlay-knoll {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.75rem 1.25rem;
-  background-color: #fff;
-}
-
-@media (max-width: 767px) {
-  .flatlay-knoll {
-    gap: 1.25rem 0.875rem;
-  }
-}
-
-@media (min-width: 768px) {
-  .flatlay-knoll {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 2.25rem 1.75rem;
-  }
-}
-
-.flatlay-knoll > li {
-  aspect-ratio: 1 / 1;
-  min-height: 0;
-  background-color: #fff;
-}
-
-.flatlay-overhead {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
-}
-
 /* Tracked caps — sans for UI eyebrows; display stays on major headings. */
 @utility text-sign {
   font-family: var(--font-sans);
@@ -1006,7 +973,7 @@
     max-width: none;
   }
 
-  #main > main {
+  #main > div {
     width: 100%;
     max-width: none;
     margin-inline: 0;

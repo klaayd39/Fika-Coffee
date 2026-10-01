@@ -7,7 +7,7 @@ import { seoPages } from '../data/seo.js'
 
 export default function Contact() {
   return (
-    <main className="bg-canvas">
+    <div className="bg-canvas">
       <Seo {...seoPages.contact} />
       <h1 className="sr-only">Contact {brand.name}</h1>
 
@@ -73,7 +73,7 @@ export default function Contact() {
           <BodyText className="mt-8 max-w-prose text-sm">{brand.rituals[0].detail}</BodyText>
         </div>
       </section>
-    </main>
+    </div>
   )
 }
 

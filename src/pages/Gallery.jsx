@@ -63,7 +63,7 @@ export default function Gallery() {
   }
 
   return (
-    <main className="tone-inverse min-h-dvh bg-espresso-950 text-cream-50">
+    <div className="tone-inverse min-h-dvh bg-espresso-950 text-cream-50">
       <Seo {...seoPages.gallery} />
 
       <div className="page-top content-shell pb-6 pt-2 text-center md:pb-8">
@@ -96,6 +96,6 @@ export default function Gallery() {
         onClose={closePhoto}
         onStep={step}
       />
-    </main>
+    </div>
   )
 }

@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { navItems } from '../../data/navigation.js'
 import { preloadPage } from '../../routes.js'
 import { cn } from '../../utils/cn.js'
-import { navItemIsActive, navItemPreloadPath, navItemTo } from '../../utils/navItems.js'
+import { navItemPreloadPath, navItemTo, navLinkIsActive } from '../../utils/navItems.js'
 import Logo from './Logo.jsx'
 
 const desktopLinkClass =
@@ -95,17 +95,15 @@ export default function Navbar() {
         <ul className="hidden items-center gap-7 md:ml-auto md:flex lg:gap-9">
           {navItems.map((item) => (
             <li key={item.label}>
-              <NavLink
+              <Link
                 to={navItemTo(item)}
-                end={item.end}
-                className={({ isActive }) =>
-                  cn(desktopLinkClass, (navItemIsActive(item, location) ?? isActive) && 'active')
-                }
+                aria-current={navLinkIsActive(item, location) ? 'page' : undefined}
+                className={cn(desktopLinkClass, navLinkIsActive(item, location) && 'active')}
                 onPointerEnter={() => preloadPage(navItemPreloadPath(item))}
                 onFocus={() => preloadPage(navItemPreloadPath(item))}
               >
                 {item.label}
-              </NavLink>
+              </Link>
             </li>
           ))}
         </ul>
@@ -166,21 +164,19 @@ export default function Navbar() {
               <ul className="flex flex-col gap-1">
                 {navItems.map((item) => (
                   <li key={item.label}>
-                    <NavLink
+                    <Link
                       to={navItemTo(item)}
-                      end={item.end}
+                      aria-current={navLinkIsActive(item, location) ? 'page' : undefined}
                       onClick={() => setOpen(false)}
                       onPointerEnter={() => preloadPage(navItemPreloadPath(item))}
                       onFocus={() => preloadPage(navItemPreloadPath(item))}
-                      className={({ isActive }) =>
-                        cn(
-                          mobileLinkClass,
-                          (navItemIsActive(item, location) ?? isActive) && 'active',
-                        )
-                      }
+                      className={cn(
+                        mobileLinkClass,
+                        navLinkIsActive(item, location) && 'active',
+                      )}
                     >
                       {item.label}
-                    </NavLink>
+                    </Link>
                   </li>
                 ))}
               </ul>

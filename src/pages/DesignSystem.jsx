@@ -47,7 +47,7 @@ export default function DesignSystem() {
   }, [])
 
   return (
-    <main className="content-shell py-section">
+    <div className="content-shell py-section">
       <Seo
         title={`Design system · ${brand.name}`}
         description={`Internal preview of the ${brand.name} design system.`}
@@ -385,6 +385,6 @@ export default function DesignSystem() {
           </form>
         </Card>
       </Section>
-    </main>
+    </div>
   )
 }

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { cn } from '../../utils/cn.js'
 import { coverImageClass, objectPositionStyle } from '../../utils/imageCrop.js'
 
@@ -29,21 +29,6 @@ export default function GalleryCoverflow({ photos, activeIndex, onActiveChange, 
     },
     [activeIndex, onActiveChange, photos.length],
   )
-
-  useEffect(() => {
-    const onKeyDown = (event) => {
-      if (event.key === 'ArrowRight') {
-        event.preventDefault()
-        go(1)
-      }
-      if (event.key === 'ArrowLeft') {
-        event.preventDefault()
-        go(-1)
-      }
-    }
-    window.addEventListener('keydown', onKeyDown)
-    return () => window.removeEventListener('keydown', onKeyDown)
-  }, [go])
 
   function onPointerDown(event) {
     if (event.pointerType === 'mouse' && event.button !== 0) return
@@ -98,12 +83,23 @@ export default function GalleryCoverflow({ photos, activeIndex, onActiveChange, 
       <div
         ref={stageRef}
         className="gallery-coverflow__stage"
+        tabIndex={0}
+        onKeyDown={(event) => {
+          if (event.key === 'ArrowRight') {
+            event.preventDefault()
+            go(1)
+          }
+          if (event.key === 'ArrowLeft') {
+            event.preventDefault()
+            go(-1)
+          }
+        }}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
         aria-roledescription="carousel"
-        aria-label="Gallery photos. Swipe or use arrow keys to browse."
+        aria-label="Gallery photos. Swipe to browse, or focus here and use arrow keys."
         style={{ '--drag': `${dragOffset}px` }}
       >
         <ul className="gallery-coverflow__track">
@@ -161,7 +157,7 @@ export default function GalleryCoverflow({ photos, activeIndex, onActiveChange, 
       </div>
 
       <p className="gallery-coverflow__hint text-center text-sm text-cream-200/75">
-        Swipe or use arrow keys · Tap the center photo to enlarge
+        Swipe to browse · Focus the carousel for arrow keys · Tap the center photo to enlarge
       </p>
     </div>
   )

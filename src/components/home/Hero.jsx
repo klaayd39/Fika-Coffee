@@ -59,15 +59,17 @@ export default function Hero() {
                 {hero.supporting}
               </p>
 
-              <div className="mt-10 sm:mt-11">
-                <OpenStatus className="mb-5" />
+              <div className="hero-actions hero-actions__dock mt-10 sm:mt-11">
+                <OpenStatus className="hero-actions__status" />
 
                 <Button
                   as={Link}
                   to={{ pathname: '/', hash: 'contact' }}
+                  variant="inverse"
                   size="lg"
+                  pill
                   arrow
-                  className="tap-target min-h-12 w-full px-7 text-sm sm:w-auto"
+                  className="hero-actions__cta tap-target min-h-12 w-full px-8 text-sm sm:min-w-[11.75rem]"
                 >
                   {hero.cta}
                 </Button>

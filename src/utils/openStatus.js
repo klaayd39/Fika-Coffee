@@ -101,13 +101,13 @@ export function getOpenStatus(rows, date = new Date()) {
     yesterday.close > MINUTES_PER_DAY &&
     minutes < yesterday.close - MINUTES_PER_DAY
   ) {
-    return { isOpen: true, label: 'Open now', detail: `until ${yesterday.closesLabel}` }
+    return { isOpen: true, label: 'Open now', detail: `Until ${yesterday.closesLabel}` }
   }
 
   if (!today) return null
 
   if (minutes >= today.open && minutes < today.close) {
-    return { isOpen: true, label: 'Open now', detail: `until ${today.closesLabel}` }
+    return { isOpen: true, label: 'Open now', detail: `Until ${today.closesLabel}` }
   }
 
   for (let offset = 0; offset <= 7; offset += 1) {
@@ -117,7 +117,7 @@ export function getOpenStatus(rows, date = new Date()) {
 
     const when =
       offset === 0 ? 'today' : offset === 1 ? 'tomorrow' : DAYS[(day + offset) % 7]
-    return { isOpen: false, label: 'Closed now', detail: `opens ${when} at ${slot.opensLabel}` }
+    return { isOpen: false, label: 'Closed now', detail: `Opens ${when} at ${slot.opensLabel}` }
   }
 
   return { isOpen: false, label: 'Closed now', detail: null }

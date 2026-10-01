@@ -638,8 +638,7 @@
   grid-template-columns: 1fr 1fr;
   grid-template-areas:
     'title title'
-    'lead lead'
-    'copy copy'
+    'body body'
     'whisk matcha'
     'beans samyang';
   align-items: start;
@@ -658,34 +657,17 @@
   text-align: center;
 }
 
-.flatlay-stage__lead,
-.flatlay-stage__copy {
+.flatlay-stage__body {
+  grid-area: body;
   justify-self: stretch;
   width: 100%;
   padding-inline: 0.125rem;
 }
 
-.flatlay-stage__lead {
-  grid-area: lead;
-}
-
-.flatlay-stage__copy {
-  grid-area: copy;
-}
-
-.flatlay-stage__headline {
-  max-width: 20em;
-  text-wrap: balance;
-  line-height: 1.18;
-  letter-spacing: -0.01em;
-}
-
-.flatlay-stage__subhead {
-  margin-top: 0.25rem;
-  max-width: 18em;
+.flatlay-stage__prose {
+  text-align: justify;
   text-wrap: pretty;
-  line-height: 1.2;
-  letter-spacing: -0.008em;
+  hyphens: auto;
 }
 
 .flatlay-prop {
@@ -726,13 +708,115 @@
   width: min(100%, 10rem);
 }
 
-@media (max-width: 359px) {
+/* Mobile — props as a soft flat-lay behind the copy; desktop grid unchanged below. */
+@media (max-width: 899px) {
+  .flatlay-stage {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    min-height: 26rem;
+    padding-block: 0.25rem 0.75rem;
+    overflow: hidden;
+  }
+
+  .flatlay-stage::after {
+    content: '';
+    position: absolute;
+    inset: -0.5rem -0.75rem;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      linear-gradient(
+        175deg,
+        rgb(255 255 255 / 0.42) 0%,
+        rgb(255 255 255 / 0.18) 48%,
+        rgb(255 255 255 / 0.38) 100%
+      );
+  }
+
+  .flatlay-stage__title,
+  .flatlay-stage__body {
+    position: relative;
+    z-index: 2;
+    grid-area: unset;
+  }
+
+  .flatlay-stage__body {
+    padding: 1rem 1.125rem;
+    border-radius: var(--radius-md);
+    background: rgb(255 255 255 / 0.55);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+  }
+
   .flatlay-prop {
-    width: min(100%, 7.75rem);
+    position: absolute;
+    z-index: 0;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    max-width: none;
+    align-self: auto;
+    justify-self: auto;
+    opacity: 0.92;
+    pointer-events: none;
+  }
+
+  .flatlay-prop img {
+    filter: drop-shadow(0 16px 32px rgb(27 20 19 / 0.16));
+  }
+
+  .flatlay-prop--whisk {
+    top: 0.25rem;
+    left: -12%;
+    width: min(46vw, 10.5rem);
+    transform: rotate(-10deg);
+  }
+
+  .flatlay-prop--matcha {
+    top: -0.25rem;
+    right: -10%;
+    width: min(48vw, 11rem);
+    transform: rotate(8deg);
+  }
+
+  .flatlay-prop--beans {
+    top: 36%;
+    left: -8%;
+    width: min(44vw, 9.5rem);
+    opacity: 0.88;
+    transform: rotate(-6deg);
   }
 
   .flatlay-prop--samyang {
-    width: min(100%, 8.75rem);
+    bottom: 0;
+    right: -14%;
+    width: min(62vw, 14rem);
+    opacity: 0.9;
+    transform: rotate(6deg);
+  }
+}
+
+@media (max-width: 359px) {
+  .flatlay-prop--whisk {
+    left: -16%;
+    width: min(50vw, 9.5rem);
+  }
+
+  .flatlay-prop--matcha {
+    right: -14%;
+    width: min(52vw, 10rem);
+  }
+
+  .flatlay-prop--beans {
+    width: min(46vw, 8.5rem);
+  }
+
+  .flatlay-prop--samyang {
+    right: -18%;
+    width: min(64vw, 12rem);
   }
 }
 
@@ -741,8 +825,8 @@
     grid-template-columns: minmax(8.5rem, 13rem) minmax(0, 1.15fr) minmax(0, 0.95fr) minmax(10rem, 18rem);
     grid-template-areas:
       'whisk title title matcha'
-      'whisk lead copy samyang'
-      'beans lead copy samyang';
+      'whisk body body samyang'
+      'beans body body samyang';
     align-items: center;
     column-gap: clamp(1.25rem, 3vw, 3.5rem);
     row-gap: 1.25rem;
@@ -752,15 +836,19 @@
     width: min(100%, 40rem);
   }
 
-  .flatlay-stage__lead,
-  .flatlay-stage__copy {
+  .flatlay-stage__body {
     justify-self: start;
     padding-inline: 0;
+    max-width: 36rem;
   }
 
   .flatlay-prop {
+    position: static;
     width: min(100%, 13rem);
     padding-block: 0;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
     filter: none;
   }
 
@@ -772,11 +860,19 @@
     justify-self: start;
     align-self: end;
     padding-top: 0;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
   }
 
   .flatlay-prop--matcha {
     justify-self: end;
     align-self: start;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
   }
 
   .flatlay-prop--beans {
@@ -784,6 +880,10 @@
     justify-self: start;
     align-self: center;
     padding-top: 0;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
   }
 
   .flatlay-prop--samyang {
@@ -791,6 +891,10 @@
     justify-self: end;
     align-self: end;
     margin-inline-end: 0.35rem;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
   }
 }
 

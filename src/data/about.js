@@ -46,19 +46,9 @@ export const spaceTeaserParagraphs = [
   brand.rituals[0].detail,
 ]
 
-/** About page hero — layout inspired by editorial café pages; copy stays on-brand. */
-export const aboutPageIntro = `${brand.name} on ${brand.address.street} in ${brand.address.city}. ${brand.tagline}`
-
-export const aboutPageLeadEyebrow = `Est. ${brand.established}`
-
-export const aboutPageLeadHeadline =
-  'A café environment unlike any other in Malaybalay City.'
-
-export const aboutPageRightTitle = 'The perfect place to take your fika.'
-
-export function aboutPageRightParagraphs() {
-  return [...storyPageParagraphs(), spaceTeaserParagraphs[1]]
-}
+/** Flat-lay About showcase (home + /about). */
+export const aboutShowcaseBody =
+  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London, took a 1914 Cicero translation and scrambled it to make dummy text for Letraset's Body Type sheets. It has survived not only many decades, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised thanks to these sheets and more recently with desktop publishing software like Aldus PageMaker and Microsoft Word including versions of Lorem Ipsum."
 
 /** Generated editorial still-life — props on the edges, open center for copy. */
 export const aboutShowcaseBackground = {

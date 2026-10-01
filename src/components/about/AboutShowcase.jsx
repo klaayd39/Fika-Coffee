@@ -1,12 +1,6 @@
-import {
-  aboutPageIntro,
-  aboutPageLeadEyebrow,
-  aboutPageLeadHeadline,
-  aboutPageRightParagraphs,
-  aboutPageRightTitle,
-} from '../../data/about.js'
+import { aboutShowcaseBody } from '../../data/about.js'
 import { cn } from '../../utils/cn.js'
-import { BodyText, DisplayTitle, Eyebrow } from '../ui/index.js'
+import { BodyText, DisplayTitle } from '../ui/index.js'
 import { EditorialCtaLink } from '../home/EditorialSplit.jsx'
 
 const scrollLandmark = 'scroll-mt-header md:scroll-mt-28'
@@ -47,8 +41,6 @@ const props = [
 ]
 
 export default function AboutShowcase({ embedded = false }) {
-  const paragraphs = aboutPageRightParagraphs()
-
   return (
     <section
       id={embedded ? 'about' : undefined}
@@ -83,29 +75,12 @@ export default function AboutShowcase({ embedded = false }) {
             About
           </DisplayTitle>
           <span className="mx-auto mt-4 block h-px w-14 bg-line md:mt-5" aria-hidden="true" />
-          <BodyText large className="mt-5 text-pretty text-ink-soft md:mt-7">
-            {aboutPageIntro}
-          </BodyText>
         </header>
 
-        <div data-reveal className="flatlay-stage__lead max-w-xl">
-          <Eyebrow className="text-ink-muted">{aboutPageLeadEyebrow}</Eyebrow>
-          <DisplayTitle size="xl" className="flatlay-stage__headline mt-4 md:mt-5">
-            {aboutPageLeadHeadline}
-          </DisplayTitle>
-        </div>
-
-        <div data-reveal className="flatlay-stage__copy max-w-lg lg:max-w-xl">
-          <DisplayTitle size="md" className="flatlay-stage__subhead">
-            {aboutPageRightTitle}
-          </DisplayTitle>
-          <div className="mt-5 space-y-4 md:mt-7 md:space-y-5">
-            {paragraphs.map((text) => (
-              <BodyText key={text} className="text-pretty">
-                {text}
-              </BodyText>
-            ))}
-          </div>
+        <div data-reveal className="flatlay-stage__body max-w-none lg:max-w-2xl">
+          <BodyText large className="flatlay-stage__prose text-justify hyphens-auto">
+            {aboutShowcaseBody}
+          </BodyText>
           <EditorialCtaLink
             to={embedded ? '#contact' : '/contact#visit'}
             className="mt-8 max-md:mb-1 md:mt-10"

@@ -6,7 +6,11 @@ export default function AtmosphereBand() {
   const { image, headline, ctaLabel, ctaTo } = atmosphere
 
   return (
-    <section aria-labelledby="atmosphere-heading" className="band-edge relative isolate bg-espresso-950">
+    <section
+      id="gallery"
+      aria-labelledby="atmosphere-heading"
+      className="scroll-mt-[calc(4.75rem+env(safe-area-inset-top,0px))] band-edge relative isolate bg-espresso-950 md:scroll-mt-28"
+    >
       <figure className="relative aspect-[4/5] min-h-[min(85svh,28rem)] w-full overflow-hidden sm:aspect-[16/10] sm:min-h-[30rem] lg:min-h-[min(75vh,42rem)]">
         <picture className="absolute inset-0 block size-full">
           <source type="image/avif" srcSet={image.srcSetAvif} sizes={image.sizes} />

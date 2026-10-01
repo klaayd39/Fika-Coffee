@@ -1,5 +1,5 @@
-import About from '../components/home/About.jsx'
 import AtmosphereBand from '../components/home/AtmosphereBand.jsx'
+import HomeAboutSection from '../components/home/HomeAboutSection.jsx'
 import FeaturedFavorites from '../components/home/FeaturedFavorites.jsx'
 import FinalCta from '../components/home/FinalCta.jsx'
 import Hero from '../components/home/Hero.jsx'
@@ -14,8 +14,8 @@ export default function Home() {
       <Hero />
       <FeaturedFavorites />
       <AtmosphereBand />
-      <About />
-      <LocationSection id="home-location" className="band-edge bg-canvas" imageFirst />
+      <HomeAboutSection />
+      <LocationSection id="contact" className="band-edge bg-canvas" imageFirst />
       <FinalCta />
     </main>
   )

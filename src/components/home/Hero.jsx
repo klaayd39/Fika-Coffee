@@ -60,7 +60,7 @@ export default function Hero() {
               </Button>
               <Button
                 as={Link}
-                to="#home-location"
+                to="#contact"
                 variant="secondaryInverse"
                 arrow
                 className="tap-target w-full sm:w-auto"

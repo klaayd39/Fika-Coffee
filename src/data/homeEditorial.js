@@ -30,8 +30,6 @@ export const homeEditorialBands = [
     eyebrow: 'Our story',
     heading: 'A Space Made for Coffee & Conversation.',
     paragraphs: storyTeaserParagraphs,
-    ctaLabel: 'Read our story',
-    ctaTo: '/about',
     image: {
       ...about.image,
       sizes: editorialSizes,
@@ -45,7 +43,7 @@ export const homeEditorialBands = [
     heading: `${brand.sign}, on ${brand.address.street}.`,
     paragraphs: spaceTeaserParagraphs,
     ctaLabel: 'Visit us',
-    ctaTo: '/contact',
+    ctaTo: '#contact',
     image: sofa
       ? fromGallery(sofa, 'The pink room at Fika Coffee.')
       : about.image,

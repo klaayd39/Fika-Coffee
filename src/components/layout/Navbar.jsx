@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { navItems } from '../../data/navigation.js'
 import { preloadPage } from '../../routes.js'
 import { cn } from '../../utils/cn.js'
-import { Button } from '../ui/index.js'
+import { navItemIsActive, navItemPreloadPath, navItemTo } from '../../utils/navItems.js'
 import Logo from './Logo.jsx'
 
 const desktopLinkClass =
@@ -11,11 +11,6 @@ const desktopLinkClass =
 
 const mobileLinkClass =
   'tap-target flex min-h-12 items-center font-sans text-lg font-normal text-ink-soft transition-colors duration-300 ease-out hover:text-ink [&.active]:text-ink'
-
-const mobileNavOrder = [
-  navItems.find((item) => item.to === '/menu'),
-  ...navItems.filter((item) => item.to !== '/menu'),
-].filter(Boolean)
 
 const headerOffset = 'calc(4.75rem + env(safe-area-inset-top, 0px))'
 
@@ -38,7 +33,10 @@ export default function Navbar() {
   }, [location.pathname, location.hash, location.key])
 
   useEffect(() => {
-    if (!open) return
+    if (!open) {
+      document.documentElement.classList.remove('nav-scroll-lock')
+      return
+    }
 
     const onKeyDown = (event) => {
       if (event.key === 'Escape') {
@@ -53,26 +51,32 @@ export default function Navbar() {
 
     window.addEventListener('keydown', onKeyDown)
     desktop.addEventListener('change', onBreakpoint)
-
-    const previousOverflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
+    document.documentElement.classList.add('nav-scroll-lock')
 
     panelRef.current?.focus()
 
     return () => {
       window.removeEventListener('keydown', onKeyDown)
       desktop.removeEventListener('change', onBreakpoint)
-      document.body.style.overflow = previousOverflow
+      document.documentElement.classList.remove('nav-scroll-lock')
     }
   }, [open])
+
+  useEffect(() => {
+    return () => {
+      document.documentElement.classList.remove('nav-scroll-lock')
+    }
+  }, [])
 
   const chrome = scrolled || open
 
   return (
     <header
       className={cn(
-        'sticky top-0 z-[60] pt-[env(safe-area-inset-top,0px)] transition-[background-color,border-color] duration-300 ease-out',
-        chrome ? 'border-b border-line/80 bg-canvas/95' : 'border-b border-transparent bg-canvas/80',
+        'fixed inset-x-0 top-0 z-[60] pt-[env(safe-area-inset-top,0px)] transition-[background-color,border-color,backdrop-filter] duration-300 ease-out',
+        chrome
+          ? 'border-b border-line/80 bg-canvas/95 backdrop-blur-md supports-[backdrop-filter]:bg-canvas/90'
+          : 'border-b border-transparent bg-canvas/80 backdrop-blur-sm supports-[backdrop-filter]:bg-canvas/75',
       )}
     >
       <a
@@ -88,33 +92,23 @@ export default function Navbar() {
       >
         <Logo className="shrink-0" />
 
-        <div className="hidden items-center gap-10 md:ml-auto md:flex lg:gap-12">
-          <ul className="flex items-center gap-7 lg:gap-9">
-            {navItems.map((item) => (
-              <li key={item.to}>
-                <NavLink
-                  to={item.to}
-                  end={item.end}
-                  className={desktopLinkClass}
-                  onPointerEnter={() => preloadPage(item.to)}
-                  onFocus={() => preloadPage(item.to)}
-                >
-                  {item.label}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-          <Button
-            as={Link}
-            to="/contact#visit"
-            variant="secondary"
-            arrow
-            onPointerEnter={() => preloadPage('/contact')}
-            onFocus={() => preloadPage('/contact')}
-          >
-            Visit us
-          </Button>
-        </div>
+        <ul className="hidden items-center gap-7 md:ml-auto md:flex lg:gap-9">
+          {navItems.map((item) => (
+            <li key={item.label}>
+              <NavLink
+                to={navItemTo(item)}
+                end={item.end}
+                className={({ isActive }) =>
+                  cn(desktopLinkClass, (navItemIsActive(item, location) ?? isActive) && 'active')
+                }
+                onPointerEnter={() => preloadPage(navItemPreloadPath(item))}
+                onFocus={() => preloadPage(navItemPreloadPath(item))}
+              >
+                {item.label}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
 
         <button
           ref={buttonRef}
@@ -170,34 +164,25 @@ export default function Navbar() {
               className="content-shell py-6 pb-[max(1.5rem,env(safe-area-inset-bottom,0px))]"
             >
               <ul className="flex flex-col gap-1">
-                {mobileNavOrder.map((item) => (
-                  <li key={item.to}>
+                {navItems.map((item) => (
+                  <li key={item.label}>
                     <NavLink
-                      to={item.to}
+                      to={navItemTo(item)}
                       end={item.end}
                       onClick={() => setOpen(false)}
-                      onPointerEnter={() => preloadPage(item.to)}
-                      onFocus={() => preloadPage(item.to)}
-                      className={cn(mobileLinkClass, item.to === '/menu' && 'text-ink')}
+                      onPointerEnter={() => preloadPage(navItemPreloadPath(item))}
+                      onFocus={() => preloadPage(navItemPreloadPath(item))}
+                      className={({ isActive }) =>
+                        cn(
+                          mobileLinkClass,
+                          (navItemIsActive(item, location) ?? isActive) && 'active',
+                        )
+                      }
                     >
                       {item.label}
                     </NavLink>
                   </li>
                 ))}
-                <li className="pt-4">
-                  <Button
-                    as={Link}
-                    to="/contact#visit"
-                    variant="secondary"
-                    arrow
-                    className="tap-target"
-                    onClick={() => setOpen(false)}
-                    onPointerEnter={() => preloadPage('/contact')}
-                    onFocus={() => preloadPage('/contact')}
-                  >
-                    Visit us
-                  </Button>
-                </li>
               </ul>
             </nav>
           </div>

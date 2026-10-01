@@ -240,6 +240,132 @@
   }
 }
 
+/* Flat-lay / knolling — overhead objects aligned on a white table. */
+.flatlay-stage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'title title'
+    'whisk matcha'
+    'lead lead'
+    'copy copy'
+    'beans samyang';
+  align-items: center;
+  justify-items: center;
+  gap: 1.5rem 1rem;
+  background-color: #fff;
+}
+
+.flatlay-stage__title {
+  grid-area: title;
+  justify-self: center;
+  width: min(100%, 40rem);
+  text-align: center;
+}
+
+.flatlay-stage__lead {
+  grid-area: lead;
+  justify-self: start;
+  width: 100%;
+}
+
+.flatlay-stage__copy {
+  grid-area: copy;
+  justify-self: start;
+  width: 100%;
+}
+
+.flatlay-prop {
+  margin: 0;
+  width: min(100%, 10.5rem);
+}
+
+.flatlay-prop img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 18px rgb(27 20 19 / 0.1));
+}
+
+.flatlay-prop--whisk {
+  grid-area: whisk;
+  justify-self: start;
+  align-self: end;
+}
+
+.flatlay-prop--matcha {
+  grid-area: matcha;
+  justify-self: end;
+  align-self: start;
+}
+
+.flatlay-prop--beans {
+  grid-area: beans;
+  justify-self: start;
+  align-self: center;
+  width: min(100%, 8.5rem);
+}
+
+.flatlay-prop--samyang {
+  grid-area: samyang;
+  justify-self: end;
+  align-self: end;
+  width: min(88%, 12.5rem);
+  margin-inline-end: 0.35rem;
+}
+
+@media (min-width: 900px) {
+  .flatlay-stage {
+    grid-template-columns: minmax(8.5rem, 13rem) minmax(0, 1.15fr) minmax(0, 0.95fr) minmax(10rem, 18rem);
+    grid-template-areas:
+      'whisk title title matcha'
+      'whisk lead copy samyang'
+      'beans lead copy samyang';
+    column-gap: clamp(1.25rem, 3vw, 3.5rem);
+    row-gap: 1.25rem;
+  }
+
+  .flatlay-prop {
+    width: min(100%, 13rem);
+  }
+
+  .flatlay-prop--beans {
+    width: min(100%, 9.5rem);
+  }
+
+  .flatlay-prop--samyang {
+    width: min(100%, 15.5rem);
+  }
+}
+
+.flatlay-knoll {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.75rem 1.25rem;
+  background-color: #fff;
+}
+
+@media (min-width: 768px) {
+  .flatlay-knoll {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2.25rem 1.75rem;
+  }
+}
+
+.flatlay-knoll > li {
+  aspect-ratio: 1 / 1;
+  min-height: 0;
+  background-color: #fff;
+}
+
+.flatlay-overhead {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
 /* Tracked caps — sans for UI eyebrows; display stays on major headings. */
 @utility text-sign {
   font-family: var(--font-sans);
@@ -451,7 +577,14 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 5.5rem;
-    overflow-x: clip;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    min-height: 100%;
+  }
+
+  html.nav-scroll-lock,
+  html.nav-scroll-lock body {
+    overflow: hidden;
   }
 
   @media (max-width: 767px) {
@@ -471,7 +604,12 @@
     color: var(--color-ink);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
-    overflow-x: clip;
+    overflow-x: hidden;
+    min-height: 100%;
+  }
+
+  #root {
+    min-height: 100%;
   }
 
   img,

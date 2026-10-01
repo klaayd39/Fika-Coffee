@@ -37,11 +37,11 @@ export default function AtmosphereBand() {
 
       <div className="pointer-events-none absolute inset-x-0 bottom-0 pb-10 pt-16 sm:pb-12 md:pb-14 lg:pb-16">
         <div className="pointer-events-auto content-shell max-w-prose">
-          <div className="max-w-md sm:max-w-lg">
+          <div className="max-w-none sm:max-w-lg">
             <DisplayTitle
               id="atmosphere-heading"
               size="lg"
-              className="leading-[1.12] text-cream-50"
+              className="max-w-full text-pretty leading-[1.14] text-cream-50 sm:leading-[1.12]"
             >
               {headline}
             </DisplayTitle>

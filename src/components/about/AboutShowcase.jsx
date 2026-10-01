@@ -79,30 +79,38 @@ export default function AboutShowcase({ embedded = false }) {
             as={embedded ? 'h2' : 'h1'}
             id={embedded ? 'home-about-title' : undefined}
             size="page"
+            className="max-md:text-balance"
           >
             About
           </DisplayTitle>
-          <span className="mx-auto mt-5 block h-px w-14 bg-line" aria-hidden="true" />
-          <BodyText large className="mt-7 text-ink-soft">
+          <span className="mx-auto mt-4 block h-px w-14 bg-line md:mt-5" aria-hidden="true" />
+          <BodyText large className="mt-5 text-pretty text-ink-soft md:mt-7">
             {aboutPageIntro}
           </BodyText>
         </header>
 
         <div className="flatlay-stage__lead max-w-xl">
           <Eyebrow className="text-ink-muted">{aboutPageLeadEyebrow}</Eyebrow>
-          <DisplayTitle size="xl" className="mt-5 leading-[1.08]">
+          <DisplayTitle size="xl" className="flatlay-stage__headline mt-4 md:mt-5">
             {aboutPageLeadHeadline}
           </DisplayTitle>
         </div>
 
         <div className="flatlay-stage__copy max-w-lg lg:max-w-xl">
-          <DisplayTitle size="md">{aboutPageRightTitle}</DisplayTitle>
-          <div className="mt-7 space-y-5">
+          <DisplayTitle size="md" className="flatlay-stage__subhead">
+            {aboutPageRightTitle}
+          </DisplayTitle>
+          <div className="mt-5 space-y-4 md:mt-7 md:space-y-5">
             {paragraphs.map((text) => (
-              <BodyText key={text}>{text}</BodyText>
+              <BodyText key={text} className="text-pretty">
+                {text}
+              </BodyText>
             ))}
           </div>
-          <EditorialCtaLink to={embedded ? '#contact' : '/contact#visit'} className="mt-10">
+          <EditorialCtaLink
+            to={embedded ? '#contact' : '/contact#visit'}
+            className="mt-8 max-md:mb-1 md:mt-10"
+          >
             Visit us
           </EditorialCtaLink>
         </div>

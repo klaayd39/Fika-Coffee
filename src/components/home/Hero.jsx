@@ -12,11 +12,9 @@ export default function Hero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="relative isolate w-full overflow-x-clip"
+      className="hero-bleed relative isolate overflow-hidden"
     >
-      <figure
-        className={`relative mx-[calc(50%-50vw)] w-screen max-w-none overflow-hidden ${cropAspect.hero}`}
-      >
+      <figure className={`relative overflow-hidden ${cropAspect.hero}`}>
         <picture className="absolute inset-0 block size-full">
           <source type="image/avif" srcSet={image.srcSetAvif} sizes={HERO_SIZES_ATTR} />
           <source type="image/webp" srcSet={image.srcSetWebp} sizes={HERO_SIZES_ATTR} />

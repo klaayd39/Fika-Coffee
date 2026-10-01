@@ -11,7 +11,7 @@ export default function Layout() {
       <RouteScroll />
       <LocalBusinessJsonLd />
       <Navbar />
-      <div id="main" tabIndex={-1} className="min-h-0 min-w-0 flex-1 focus:outline-none">
+      <div id="main" tabIndex={-1} className="min-h-0 min-w-0 w-full flex-1 focus:outline-none">
         <Outlet />
       </div>
       <Footer />

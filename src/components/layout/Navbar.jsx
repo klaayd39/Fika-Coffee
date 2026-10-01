@@ -3,7 +3,13 @@ import { Link, useLocation } from 'react-router-dom'
 import { navItems } from '../../data/navigation.js'
 import { preloadPage } from '../../routes.js'
 import { cn } from '../../utils/cn.js'
-import { navItemPreloadPath, navItemTo, navLinkIsActive } from '../../utils/navItems.js'
+import { getHomeSpyHash } from '../../utils/homeSectionSpy.js'
+import {
+  navItemPreloadPath,
+  navItemTo,
+  navLinkIsActive,
+  resolveHomeNavSpy,
+} from '../../utils/navItems.js'
 import Logo from './Logo.jsx'
 
 const desktopLinkClass =
@@ -17,16 +23,42 @@ const headerOffset = 'calc(4.75rem + env(safe-area-inset-top, 0px))'
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [homeSpyHash, setHomeSpyHash] = useState('')
   const location = useLocation()
   const buttonRef = useRef(null)
   const panelRef = useRef(null)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8)
-    onScroll()
+    let frame = 0
+
+    const syncScroll = () => {
+      setScrolled(window.scrollY > 8)
+      if (location.pathname === '/') {
+        setHomeSpyHash(getHomeSpyHash())
+      } else {
+        setHomeSpyHash('')
+      }
+    }
+
+    const onScroll = () => {
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(syncScroll)
+    }
+
+    syncScroll()
+    const resyncTimers = [120, 400, 900].map((ms) => window.setTimeout(syncScroll, ms))
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+    window.addEventListener('resize', onScroll, { passive: true })
+    return () => {
+      cancelAnimationFrame(frame)
+      resyncTimers.forEach((id) => window.clearTimeout(id))
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [location.pathname, location.hash, location.key])
+
+  const homeNavSpy = resolveHomeNavSpy(location, homeSpyHash)
+  const onInverseBand = homeNavSpy === 'gallery'
 
   useEffect(() => {
     setOpen(false)
@@ -68,15 +100,17 @@ export default function Navbar() {
     }
   }, [])
 
-  const chrome = scrolled || open
+  const chrome = scrolled || open || onInverseBand
 
   return (
     <header
       className={cn(
         'fixed inset-x-0 top-0 z-[60] pt-[env(safe-area-inset-top,0px)] transition-[background-color,border-color,backdrop-filter] duration-300 ease-out',
-        chrome
-          ? 'border-b border-line/80 bg-canvas/95 backdrop-blur-md supports-[backdrop-filter]:bg-canvas/90'
-          : 'border-b border-transparent bg-canvas/80 backdrop-blur-sm supports-[backdrop-filter]:bg-canvas/75',
+        onInverseBand
+          ? 'border-b border-line/80 bg-canvas shadow-[0_1px_0_rgb(27_20_19/0.04)]'
+          : chrome
+            ? 'border-b border-line/80 bg-canvas/95 backdrop-blur-md supports-[backdrop-filter]:bg-canvas/90'
+            : 'border-b border-transparent bg-canvas/80 backdrop-blur-sm supports-[backdrop-filter]:bg-canvas/75',
       )}
     >
       <a
@@ -97,8 +131,11 @@ export default function Navbar() {
             <li key={item.label}>
               <Link
                 to={navItemTo(item)}
-                aria-current={navLinkIsActive(item, location) ? 'page' : undefined}
-                className={cn(desktopLinkClass, navLinkIsActive(item, location) && 'active')}
+                aria-current={navLinkIsActive(item, location, homeNavSpy) ? 'page' : undefined}
+                className={cn(
+                  desktopLinkClass,
+                  navLinkIsActive(item, location, homeNavSpy) && 'active',
+                )}
                 onPointerEnter={() => preloadPage(navItemPreloadPath(item))}
                 onFocus={() => preloadPage(navItemPreloadPath(item))}
               >
@@ -166,13 +203,13 @@ export default function Navbar() {
                   <li key={item.label}>
                     <Link
                       to={navItemTo(item)}
-                      aria-current={navLinkIsActive(item, location) ? 'page' : undefined}
+                      aria-current={navLinkIsActive(item, location, homeNavSpy) ? 'page' : undefined}
                       onClick={() => setOpen(false)}
                       onPointerEnter={() => preloadPage(navItemPreloadPath(item))}
                       onFocus={() => preloadPage(navItemPreloadPath(item))}
                       className={cn(
                         mobileLinkClass,
-                        navLinkIsActive(item, location) && 'active',
+                        navLinkIsActive(item, location, homeNavSpy) && 'active',
                       )}
                     >
                       {item.label}

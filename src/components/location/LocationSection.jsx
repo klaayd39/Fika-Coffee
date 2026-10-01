@@ -1,6 +1,4 @@
 import { cn } from '../../utils/cn.js'
-import { hoverArrow, hoverTextCta } from '../../utils/motion.js'
-import { brand } from '../../data/brand.js'
 import {
   addressLines,
   contactCopy,
@@ -10,28 +8,24 @@ import {
 } from '../../data/contact.js'
 import { locationSection } from '../../data/location.js'
 import { coverImageClass, cropAspect, objectPositionStyle } from '../../utils/imageCrop.js'
-import { BodyText, DisplayTitle, Eyebrow } from '../ui/index.js'
+import { Button, DisplayTitle, Eyebrow } from '../ui/index.js'
 
 function DirectionsLink({ className }) {
   if (!mapsUrl) return null
 
   return (
-    <a
+    <Button
+      as="a"
       href={mapsUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className={cn(
-        'group text-action tap-target inline-flex min-h-11 items-center text-ink-muted hover:text-ink focus-visible:outline-offset-4',
-        hoverTextCta,
-        className,
-      )}
+      size="lg"
+      arrow
+      className={cn('tap-target min-h-12 w-full px-7 text-sm sm:w-auto', className)}
     >
-      {locationSection.directionsLabel}{' '}
-      <span aria-hidden="true" className={hoverArrow}>
-        →
-      </span>
+      {locationSection.directionsLabel}
       <span className="sr-only"> (opens in a new tab)</span>
-    </a>
+    </Button>
   )
 }
 
@@ -88,7 +82,10 @@ export default function LocationSection({ id = 'location', className, imageFirst
               <p className="text-eyebrow">Opening hours</p>
               <ul className="text-body-lg mt-3 space-y-2 font-normal text-ink">
                 {openingHours.map((row) => (
-                  <li key={row.days} className="flex flex-col gap-0.5 sm:flex-row sm:flex-wrap sm:gap-x-3">
+                  <li
+                    key={`${row.days}-${row.opens ?? ''}-${row.closes ?? ''}`}
+                    className="flex flex-col gap-0.5 sm:flex-row sm:flex-wrap sm:gap-x-3"
+                  >
                     <span className="text-ink-soft sm:min-w-[9.5rem]">{row.days}</span>
                     {row.opens ? (
                       <span>
@@ -137,10 +134,9 @@ export default function LocationSection({ id = 'location', className, imageFirst
               {image.caption}
             </figcaption>
           ) : null}
-          <p className="sr-only">
-            Directions open a Google Maps search for this address. A precise map pin has not been
-            published.
-          </p>
+          {mapsUrl ? (
+            <p className="sr-only">Directions open a Google Maps search for this address.</p>
+          ) : null}
         </figure>
       </div>
     </section>

@@ -12,6 +12,7 @@ export default function FeaturedDrinkCard({
 }) {
   const price = formatPrice(product, missingPrice)
   const isHero = layout === 'hero'
+  const initial = product.name?.[0] ?? ''
 
   return (
     <article className={cn('flex h-full flex-col', className)}>
@@ -44,7 +45,7 @@ export default function FeaturedDrinkCard({
         ) : (
           <div className="flex size-full flex-col items-center justify-center gap-3 bg-espresso-100 px-6 text-center">
             <span aria-hidden="true" className="font-display text-6xl text-espresso-300/80 sm:text-7xl">
-              {product.name[0]}
+              {initial}
             </span>
             <span className="text-label text-2xs text-ink-muted">Photo coming soon</span>
           </div>
@@ -60,9 +61,11 @@ export default function FeaturedDrinkCard({
         <DisplayTitle as="h3" size="md" className="max-w-xl text-pretty leading-snug lg:leading-tight">
           {product.name}
         </DisplayTitle>
-        <BodyText large className="mt-3 max-w-md lg:mt-4">
-          {product.description}
-        </BodyText>
+        {product.description ? (
+          <BodyText large className="mt-3 max-w-md lg:mt-4">
+            {product.description}
+          </BodyText>
+        ) : null}
         {product.price != null ? (
           <p className="text-body mt-3 tabular-nums text-ink lg:mt-5">
             <data value={String(product.price)}>{price}</data>

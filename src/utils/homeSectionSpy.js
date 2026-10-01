@@ -21,6 +21,19 @@ export function homeSpyMarkerLine() {
   return headerHeightPx() + MARKER_BELOW_HEADER_PX
 }
 
+/** True while the hero image still fills the fixed header strip (not favorites/light bands). */
+export function isHomeHeroBehindNav() {
+  if (typeof window === 'undefined') return false
+
+  const hero = document.querySelector('.hero-bleed')
+  if (!hero) return false
+
+  const navBottom = headerHeightPx()
+  const { top, bottom } = hero.getBoundingClientRect()
+  // Require the hero to extend through most of the nav height — avoids cream links on cream bands.
+  return top < navBottom * 0.35 && bottom > navBottom * 0.72
+}
+
 export function getHomeSpyHash() {
   if (typeof window === 'undefined') return ''
 
@@ -33,8 +46,8 @@ export function getHomeSpyHash() {
     const el = document.getElementById(id)
     if (!el) continue
     const top = el.getBoundingClientRect().top
-    const scrollMarginTop = parseFloat(getComputedStyle(el).scrollMarginTop) || 0
-    if (top - scrollMarginTop <= line) current = id
+    // Use the section’s layout top only — scroll-margin is for scrollIntoView, not spy.
+    if (top <= line) current = id
   }
 
   return current

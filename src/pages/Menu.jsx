@@ -82,7 +82,7 @@ export default function Menu() {
                   id={section.id}
                   hidden={!shown}
                   aria-labelledby={`${section.id}-heading`}
-                  className="scroll-mt-[calc(4.75rem+env(safe-area-inset-top,0px))] md:scroll-mt-24"
+                  className="scroll-mt-header md:scroll-mt-24"
                 >
                   <h2
                     id={`${section.id}-heading`}

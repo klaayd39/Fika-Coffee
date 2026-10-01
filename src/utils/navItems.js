@@ -9,9 +9,10 @@ export function navItemTo(item) {
 export function resolveHomeNavSpy(location, homeSpyHash) {
   if (location.pathname !== '/') return null
   if (homeSpyHash) return homeSpyHash
-  if (typeof window !== 'undefined' && window.scrollY < 56) return ''
   const id = location.hash ? decodeURIComponent(location.hash.slice(1)) : ''
-  return HOME_SECTION_IDS.includes(id) ? id : ''
+  if (HOME_SECTION_IDS.includes(id)) return id
+  if (typeof window !== 'undefined' && window.scrollY < 56) return ''
+  return ''
 }
 
 /** NavLink’s default matcher treats every `/#section` link as active on `/`. */

@@ -1,28 +1,46 @@
 import { cn } from '../../utils/cn.js'
 import { coverImageClass, cropAspect, objectPositionStyle } from '../../utils/imageCrop.js'
 import { formatPrice } from '../../data/products.js'
+import Badge from '../ui/Badge.jsx'
 import { BodyText, DisplayTitle } from '../ui/index.js'
+
+function categoryBadgeVariant(category) {
+  if (category === 'Matcha') return 'matcha'
+  if (category === 'Food') return 'lamp'
+  return 'espresso'
+}
 
 export default function FeaturedDrinkCard({
   product,
   layout = 'standard',
+  index = 0,
   imageSizes,
-  missingPrice = 'Ask in store',
+  missingPrice = 'Ask at the counter',
   className,
 }) {
   const price = formatPrice(product, missingPrice)
   const isHero = layout === 'hero'
+  const isCompact = layout === 'compact'
   const initial = product.name?.[0] ?? ''
+  const indexLabel = String(index + 1).padStart(2, '0')
 
   return (
-    <article className={cn('flex h-full flex-col', className)}>
+    <article
+      className={cn(
+        'featured-favorite group',
+        isHero && 'featured-favorite--hero',
+        isCompact && 'featured-favorite--compact',
+        className,
+      )}
+    >
       <div
         className={cn(
           'featured-favorite__frame relative overflow-hidden bg-surface-sunken',
           product.image
             ? (cropAspect[product.image.cropAspect] ?? cropAspect.productPortrait)
             : cropAspect.productPortrait,
-          isHero && product.image && 'lg:max-h-[32rem]',
+          isHero && 'featured-favorite__frame--hero',
+          isCompact && 'featured-favorite__frame--compact shrink-0',
         )}
       >
         {product.image ? (
@@ -39,7 +57,7 @@ export default function FeaturedDrinkCard({
               loading="lazy"
               decoding="async"
               style={objectPositionStyle(product.image)}
-              className={coverImageClass}
+              className={cn(coverImageClass, 'featured-favorite__image')}
             />
           </picture>
         ) : (
@@ -50,27 +68,45 @@ export default function FeaturedDrinkCard({
             <span className="text-label text-2xs text-ink-muted">Photo coming soon</span>
           </div>
         )}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-espresso-950/25 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-within:opacity-100"
+        />
       </div>
 
-      <div
-        className={cn(
-          'featured-favorite__copy flex flex-1 flex-col',
-          isHero ? 'mt-5 sm:mt-6 lg:mt-10' : 'mt-5 sm:mt-6 lg:mt-8',
-        )}
-      >
-        <DisplayTitle as="h3" size="md" className="max-w-xl text-pretty leading-snug lg:leading-tight">
+      <div className={cn('featured-favorite__copy', isCompact && 'featured-favorite__copy--compact')}>
+        <div className="featured-favorite__meta">
+          <span className="featured-favorite__index" aria-hidden="true">{indexLabel}</span>
+          {product.category ? (
+            <Badge variant={categoryBadgeVariant(product.category)} className="featured-favorite__category">
+              {product.category}
+            </Badge>
+          ) : null}
+        </div>
+
+        <DisplayTitle
+          as="h3"
+          size="md"
+          className={cn(
+            'featured-favorite__title text-pretty leading-snug',
+            isHero ? 'mt-4 lg:mt-5' : 'mt-3 featured-favorite__title--compact',
+          )}
+        >
           {product.name}
         </DisplayTitle>
+
         {product.description ? (
-          <BodyText large className="mt-3 max-w-md lg:mt-4">
+          <BodyText
+            large={isHero}
+            className={cn('featured-favorite__description text-ink-soft', isHero ? 'mt-3 lg:mt-4' : 'mt-2')}
+          >
             {product.description}
           </BodyText>
         ) : null}
-        {product.price != null ? (
-          <p className="text-body mt-3 tabular-nums text-ink lg:mt-5">
-            <data value={String(product.price)}>{price}</data>
-          </p>
-        ) : null}
+
+        <p className="featured-favorite__price text-body mt-2 tabular-nums text-ink sm:mt-3">
+          <data value={product.price != null ? String(product.price) : undefined}>{price}</data>
+        </p>
       </div>
     </article>
   )

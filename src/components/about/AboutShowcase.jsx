@@ -9,8 +9,7 @@ import { cn } from '../../utils/cn.js'
 import { BodyText, DisplayTitle, Eyebrow } from '../ui/index.js'
 import { EditorialCtaLink } from '../home/EditorialSplit.jsx'
 
-const scrollLandmark =
-  'scroll-mt-[calc(4.75rem+env(safe-area-inset-top,0px))] md:scroll-mt-28'
+const scrollLandmark = 'scroll-mt-header md:scroll-mt-28'
 
 const props = [
   {

@@ -1,51 +1,75 @@
-import { cn } from '../../utils/cn.js'
+import { Link } from 'react-router-dom'
 import { homeFeaturedDrinks } from '../../data/products.js'
-import { DisplayTitle, Eyebrow } from '../ui/index.js'
+import { BodyText, Button, DisplayTitle, Eyebrow } from '../ui/index.js'
 import FeaturedDrinkCard from './FeaturedDrinkCard.jsx'
 
-const LEAD_IMAGE_SIZES = '(min-width: 1024px) 42vw, (min-width: 640px) 18rem, 15.25rem'
-const SIDE_IMAGE_SIZES = '(min-width: 1024px) 32vw, (min-width: 640px) 17rem, 15.25rem'
+const LEAD_IMAGE_SIZES = '(min-width: 1024px) 42vw, (min-width: 640px) 46vw, 92vw'
+const COMPACT_IMAGE_SIZES = '(min-width: 1024px) 8.75rem, (min-width: 640px) 7.5rem, 31vw'
 
-/* The grid layout is designed for one lead card plus two side cards. */
 const MAX_FEATURED = 3
+
+const INTRO =
+  'A few plates and pours we keep coming back to — made at the counter and best enjoyed slowly at the table.'
 
 export default function FeaturedFavorites() {
   const drinks = homeFeaturedDrinks.slice(0, MAX_FEATURED)
 
   if (!drinks.length) return null
 
-  return (
-    <section aria-labelledby="favorites-heading" className="band-edge bg-band-warm">
-      <div className="content-shell section-py-tight pb-8 md:pb-16 lg:pb-20">
-        <div className="max-w-prose lg:max-w-2xl">
-          <Eyebrow className="text-ink-muted">Our favorites</Eyebrow>
-          <DisplayTitle id="favorites-heading" as="h2" size="xl" className="mt-5">
-            Made to Be Savored.
-          </DisplayTitle>
-        </div>
-      </div>
+  const [lead, ...rest] = drinks
 
-      <div className="content-shell pb-10 md:pb-20 lg:content-shell-wide lg:pb-32">
-        <ul
-          role="list"
-          className="featured-favorites__grid grid list-none grid-cols-1 gap-8 sm:gap-10 lg:grid-cols-12 lg:gap-x-12 lg:gap-y-16 xl:gap-x-16"
-        >
-          {drinks.map((product, index) => {
-            const isLead = index === 0
-            return (
-              <li
-                key={product.id}
-                className={cn(isLead ? 'lg:col-span-7 lg:row-span-2' : 'lg:col-span-5')}
-              >
-                <FeaturedDrinkCard
-                  product={product}
-                  layout={isLead ? 'hero' : 'side'}
-                  imageSizes={isLead ? LEAD_IMAGE_SIZES : SIDE_IMAGE_SIZES}
-                />
-              </li>
-            )
-          })}
-        </ul>
+  return (
+    <section aria-labelledby="favorites-heading" className="featured-favorites band-edge bg-band-warm">
+      <div className="content-shell section-py-tight lg:content-shell-wide">
+        <header className="featured-favorites__intro">
+          <div className="grid gap-5 md:gap-6 lg:grid-cols-12 lg:items-end lg:gap-x-10 xl:gap-x-12">
+            <div className="lg:col-span-7">
+              <Eyebrow className="featured-favorites__eyebrow text-ink-soft">Our favorites</Eyebrow>
+              <DisplayTitle id="favorites-heading" as="h2" size="xl" className="mt-3 text-balance md:mt-4">
+                Made to Be Savored.
+              </DisplayTitle>
+            </div>
+            <BodyText large className="max-w-prose text-ink-soft lg:col-span-5 lg:pb-0.5">
+              {INTRO}
+            </BodyText>
+          </div>
+        </header>
+
+        <div className="featured-favorites__layout">
+          <div className="featured-favorites__lead">
+            <FeaturedDrinkCard product={lead} layout="hero" index={0} imageSizes={LEAD_IMAGE_SIZES} />
+          </div>
+
+          {rest.length > 0 ? (
+            <ul role="list" className="featured-favorites__stack list-none">
+              {rest.map((product, offset) => (
+                <li key={product.id}>
+                  <FeaturedDrinkCard
+                    product={product}
+                    layout="compact"
+                    index={offset + 1}
+                    imageSizes={COMPACT_IMAGE_SIZES}
+                  />
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
+
+        <footer className="featured-favorites__footer flex flex-col gap-5 border-t border-line/70 md:flex-row md:items-center md:justify-between md:gap-6">
+          <p className="text-body max-w-md text-ink-muted">
+            Menu and prices are at the counter — tell us what you&apos;re in the mood for.
+          </p>
+          <Button
+            as={Link}
+            to={{ pathname: '/', hash: 'contact' }}
+            variant="secondary"
+            arrow
+            className="tap-target shrink-0 self-start md:self-auto"
+          >
+            Visit us
+          </Button>
+        </footer>
       </div>
     </section>
   )

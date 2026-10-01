@@ -38,7 +38,7 @@ export default function LocationSection({ id = 'location', className, imageFirst
       id={id}
       aria-labelledby={headingId}
       className={cn(
-        'scroll-mt-[calc(4.75rem+env(safe-area-inset-top,0px))] section-py-tight md:scroll-mt-28 md:section-py-roomy',
+        'scroll-mt-header section-py-tight md:scroll-mt-28 md:section-py-roomy',
         className,
       )}
     >

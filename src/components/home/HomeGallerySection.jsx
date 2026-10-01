@@ -28,7 +28,7 @@ export default function HomeGallerySection() {
     <section
       id="gallery"
       aria-labelledby="home-gallery-heading"
-      className="scroll-mt-[calc(4.75rem+env(safe-area-inset-top,0px))] band-edge tone-inverse bg-espresso-950 text-cream-50 md:scroll-mt-28"
+      className="scroll-mt-header band-edge tone-inverse bg-espresso-950 text-cream-50 md:scroll-mt-28"
     >
       <div className="content-shell pb-4 pt-10 text-center md:pb-6 md:pt-14">
         <Eyebrow className="text-cream-200/75">Gallery</Eyebrow>

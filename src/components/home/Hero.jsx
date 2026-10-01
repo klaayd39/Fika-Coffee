@@ -15,7 +15,7 @@ export default function Hero() {
       aria-labelledby="hero-heading"
       className="hero-bleed relative w-full max-w-none"
     >
-      <div className="hero-bleed__stage relative w-full max-md:mt-[calc(4.75rem+env(safe-area-inset-top,0px))] md:mt-0">
+      <div className="hero-bleed__stage hero-bleed__stage--below-nav relative w-full md:mt-0">
         <figure className={`hero-bleed__figure relative overflow-hidden ${cropAspect.hero}`}>
           <picture className="absolute inset-0 block size-full">
             <source type="image/avif" srcSet={image.srcSetAvif} sizes={HERO_SIZES_ATTR} />
@@ -43,23 +43,23 @@ export default function Hero() {
           />
         </figure>
 
-        <div className="tone-inverse absolute inset-0 flex items-end pb-[max(3.5rem,env(safe-area-inset-bottom,0px))] pt-8 sm:pb-16 md:items-center md:pb-20 md:pt-0">
+        <div className="hero-bleed__content tone-inverse">
           <div className="content-shell w-full">
             <div className="hero-copy max-w-2xl md:max-w-3xl">
               <p className="text-eyebrow text-cream-200/90">{hero.eyebrow}</p>
 
               <h1
                 id="hero-heading"
-                className="text-hero-display mt-5 max-w-[16ch] text-balance text-cream-50 drop-shadow-[0_2px_24px_rgb(27_20_19/0.55)] sm:mt-6 sm:max-w-[17ch] md:max-w-[13ch]"
+                className="text-hero-display mt-4 max-w-[16ch] text-balance text-cream-50 drop-shadow-[0_2px_24px_rgb(27_20_19/0.55)] sm:mt-5 sm:max-w-[17ch] md:mt-6 md:max-w-[13ch]"
               >
                 {hero.headline}
               </h1>
 
-              <p className="text-body-lg mt-6 max-w-lg text-cream-200/95 sm:mt-7 md:max-w-xl">
+              <p className="text-body-lg mt-5 max-w-lg text-cream-200/95 sm:mt-6 md:max-w-xl">
                 {hero.supporting}
               </p>
 
-              <div className="hero-actions hero-actions--dock mt-10 sm:mt-11">
+              <div className="hero-actions hero-actions--dock mt-8 sm:mt-9 md:mt-10">
                 <OpenStatus />
 
                 <Button

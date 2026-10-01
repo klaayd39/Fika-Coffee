@@ -28,9 +28,14 @@ export default function Hero() {
             className={coverImageClass}
           />
         </picture>
+        <div aria-hidden="true" className="absolute inset-0 bg-espresso-950/35" />
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-espresso-950/58"
+          className="absolute inset-0 bg-gradient-to-r from-espresso-950/85 via-espresso-950/45 to-espresso-950/20"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-gradient-to-t from-espresso-950/35 via-transparent to-espresso-950/15 md:from-espresso-950/25"
         />
       </figure>
 

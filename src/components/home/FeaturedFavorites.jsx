@@ -65,7 +65,7 @@ export default function FeaturedFavorites() {
             to={{ pathname: '/', hash: 'contact' }}
             variant="secondary"
             arrow
-            className="tap-target shrink-0 self-start md:self-auto"
+            className="tap-target w-full min-h-12 shrink-0 self-stretch sm:w-auto sm:self-start md:self-auto"
           >
             Visit us
           </Button>

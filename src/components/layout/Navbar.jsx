@@ -23,7 +23,7 @@ const desktopLinkInverse =
   `${desktopLinkBase} text-cream-100 [text-shadow:0_1px_2px_rgb(27_20_19/0.72)] hover:text-cream-50 hover:decoration-cream-200/70 [&.active]:text-cream-50 [&.active]:decoration-cream-100/85 [&.active]:[text-shadow:0_1px_3px_rgb(27_20_19/0.85)]`
 
 const mobileLinkClass =
-  'tap-target flex min-h-12 items-center font-sans text-lg font-normal text-ink transition-colors duration-300 ease-out hover:text-espresso-950 [&.active]:font-medium [&.active]:text-espresso-950'
+  'site-header__menu-link tap-target flex min-h-12 items-center font-sans text-[1.0625rem] font-normal text-ink transition-colors duration-300 ease-out hover:text-espresso-950 [&.active]:font-medium [&.active]:text-espresso-950'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
@@ -149,7 +149,7 @@ export default function Navbar() {
                 aria-label="Mobile"
                 className="content-shell site-header__menu-nav py-5 pb-[max(1.25rem,env(safe-area-inset-bottom,0px))]"
               >
-                <ul className="flex flex-col gap-0.5">
+                <ul className="site-header__menu-list flex flex-col">
                   {navItems.map((item) => (
                     <li key={item.label}>
                       <Link

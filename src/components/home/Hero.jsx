@@ -55,7 +55,7 @@ export default function Hero() {
                 {hero.headline}
               </h1>
 
-              <p className="text-body-lg mt-5 max-w-lg text-cream-200/95 sm:mt-6 md:max-w-xl">
+              <p className="hero-copy__support text-body-lg mt-4 max-w-lg text-cream-200/95 sm:mt-5 md:mt-6 md:max-w-xl">
                 {hero.supporting}
               </p>
 

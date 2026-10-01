@@ -12,11 +12,21 @@ export default function Home() {
     <div className="home-page w-full max-w-none overflow-x-clip bg-canvas">
       <Seo {...seoPages.home} />
       <Hero />
-      <FeaturedFavorites />
-      <HomeGallerySection />
-      <HomeAboutSection />
-      <LocationSection id="contact" className="band-edge bg-canvas" imageFirst />
-      <FinalCta />
+      <div className="defer-render">
+        <FeaturedFavorites />
+      </div>
+      <div className="defer-render">
+        <HomeGallerySection />
+      </div>
+      <div className="defer-render">
+        <HomeAboutSection />
+      </div>
+      <div className="defer-render">
+        <LocationSection id="contact" className="band-edge bg-canvas" imageFirst />
+      </div>
+      <div className="defer-render">
+        <FinalCta />
+      </div>
     </div>
   )
 }

@@ -30,18 +30,18 @@ export default function HomeGallerySection() {
       aria-labelledby="home-gallery-heading"
       className="scroll-mt-header band-edge tone-inverse bg-espresso-950 text-cream-50 md:scroll-mt-28"
     >
-      <div className="content-shell pb-4 pt-10 text-center md:pb-6 md:pt-14">
+      <div className="content-shell pb-3 pt-9 text-center md:pb-6 md:pt-14">
         <Eyebrow className="text-cream-200/75">Gallery</Eyebrow>
         <DisplayTitle id="home-gallery-heading" as="h2" size="xl" className="mt-4 text-balance text-cream-50">
           Moments at Our Café
         </DisplayTitle>
         {brand.facebook ? (
-          <p className="mt-6 md:mt-8">
+          <p className="gallery-home-cta mt-5 md:mt-8">
             <a
               href={brand.facebook}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-label inline-flex min-h-11 items-center rounded-full border border-cream-100/35 bg-espresso-900/50 px-6 py-2 text-cream-100 transition-colors duration-300 hover:border-cream-100/60 hover:bg-espresso-900/80"
+              className="text-label inline-flex min-h-12 w-full max-w-xs items-center justify-center rounded-full border border-cream-100/35 bg-espresso-900/50 px-6 py-2.5 text-cream-100 transition-colors duration-300 hover:border-cream-100/60 hover:bg-espresso-900/80 sm:w-auto"
             >
               Share your moment
               <span className="sr-only"> on Facebook (opens in a new tab)</span>

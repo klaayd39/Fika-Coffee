@@ -7,6 +7,15 @@ function scrollToTop() {
   document.body.scrollTop = 0
 }
 
+function unlockBodyScrollLock() {
+  document.documentElement.classList.remove('nav-scroll-lock')
+  document.body.style.position = ''
+  document.body.style.top = ''
+  document.body.style.left = ''
+  document.body.style.right = ''
+  document.body.style.width = ''
+}
+
 function scrollToHashTarget(hash) {
   const id = decodeURIComponent(hash.slice(1))
   const target = document.getElementById(id)
@@ -22,20 +31,28 @@ export default function RouteScroll() {
   const { pathname, hash } = useLocation()
 
   useEffect(() => {
-    document.documentElement.classList.remove('nav-scroll-lock')
+    unlockBodyScrollLock()
 
     if (!hash) {
       scrollToTop()
       return
     }
 
-    if (scrollToHashTarget(hash)) return
+    let cancelled = false
+    const attempt = () => {
+      if (cancelled) return
+      scrollToHashTarget(hash)
+    }
 
-    const frame = requestAnimationFrame(() => {
-      if (!scrollToHashTarget(hash)) scrollToTop()
-    })
+    attempt()
+    const frame = requestAnimationFrame(attempt)
+    const timers = [50, 150, 400].map((ms) => window.setTimeout(attempt, ms))
 
-    return () => cancelAnimationFrame(frame)
+    return () => {
+      cancelled = true
+      cancelAnimationFrame(frame)
+      timers.forEach((id) => window.clearTimeout(id))
+    }
   }, [pathname, hash])
 
   return null

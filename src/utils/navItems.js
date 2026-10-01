@@ -1,16 +1,17 @@
 import { HOME_SECTION_IDS } from './homeSectionSpy.js'
 
 export function navItemTo(item) {
+  if (item.exactHome) return { pathname: '/', hash: '' }
   if (item.hash) return { pathname: '/', hash: `#${item.hash}` }
   return item.to
 }
 
-/** Scroll spy state, with URL hash fallback for in-page section links. */
+/** Scroll spy state, with URL hash preferred right after menu / in-page navigation. */
 export function resolveHomeNavSpy(location, homeSpyHash) {
   if (location.pathname !== '/') return null
-  if (homeSpyHash) return homeSpyHash
   const id = location.hash ? decodeURIComponent(location.hash.slice(1)) : ''
   if (HOME_SECTION_IDS.includes(id)) return id
+  if (typeof homeSpyHash === 'string') return homeSpyHash
   if (typeof window !== 'undefined' && window.scrollY < 56) return ''
   return ''
 }

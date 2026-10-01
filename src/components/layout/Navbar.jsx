@@ -33,6 +33,7 @@ export default function Navbar() {
   const location = useLocation()
   const buttonRef = useRef(null)
   const panelRef = useRef(null)
+  const scrollLockSnapshotRef = useRef(null)
 
   useEffect(() => {
     let frame = 0
@@ -80,6 +81,11 @@ export default function Navbar() {
     }
 
     const scrollY = window.scrollY
+    scrollLockSnapshotRef.current = {
+      scrollY,
+      pathname: window.location.pathname,
+      hash: window.location.hash,
+    }
 
     const onKeyDown = (event) => {
       if (event.key === 'Escape') {
@@ -112,7 +118,15 @@ export default function Navbar() {
       document.body.style.left = ''
       document.body.style.right = ''
       document.body.style.width = ''
-      window.scrollTo({ top: scrollY, left: 0, behavior: 'auto' })
+      const snap = scrollLockSnapshotRef.current
+      const samePlace =
+        snap &&
+        window.location.pathname === snap.pathname &&
+        window.location.hash === snap.hash
+      if (samePlace) {
+        window.scrollTo({ top: snap.scrollY, left: 0, behavior: 'auto' })
+      }
+      scrollLockSnapshotRef.current = null
     }
   }, [open])
 

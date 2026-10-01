@@ -28,14 +28,13 @@ export default function Hero() {
             className={coverImageClass}
           />
         </picture>
-        <div aria-hidden="true" className="absolute inset-0 bg-espresso-950/35" />
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-r from-espresso-950/85 via-espresso-950/45 to-espresso-950/20"
+          className="absolute inset-0 bg-gradient-to-r from-espresso-950/62 via-espresso-950/28 to-espresso-950/5 lg:via-espresso-950/18 lg:to-transparent"
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-gradient-to-t from-espresso-950/35 via-transparent to-espresso-950/15 md:from-espresso-950/25"
+          className="absolute inset-0 bg-gradient-to-t from-espresso-950/18 via-transparent to-transparent"
         />
       </figure>
 
@@ -46,7 +45,7 @@ export default function Hero() {
 
             <h1
               id="hero-heading"
-              className="text-hero-display mt-4 max-w-[15ch] text-balance text-cream-50 sm:mt-5 md:max-w-[12ch]"
+              className="text-hero-display mt-4 max-w-[15ch] text-balance text-cream-50 drop-shadow-[0_2px_24px_rgb(27_20_19/0.55)] sm:mt-5 md:max-w-[12ch]"
             >
               {hero.headline}
             </h1>

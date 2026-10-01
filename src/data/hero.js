@@ -10,14 +10,14 @@ export const hero = {
   primaryCta: 'View our menu',
   secondaryCta: 'Visit Us',
   image: {
-    alt: 'Fika Coffee in Malaybalay City: the pink storefront, mirror nook, warm dining room, matcha at the counter, and the Pause Here entrance.',
+    alt: 'Fika Coffee in Malaybalay City: Pause Here on the wall, the pink mirror nook, and matcha at the counter.',
     width: 1920,
-    height: 823,
+    height: 1268,
     src: '/images/hero/editorial-1920.jpg',
     srcSetAvif: widths.map((w) => `/images/hero/editorial-${w}.avif ${w}w`).join(', '),
     srcSetWebp: widths.map((w) => `/images/hero/editorial-${w}.webp ${w}w`).join(', '),
     srcSetJpg: widths.map((w) => `/images/hero/editorial-${w}.jpg ${w}w`).join(', '),
     sizes: '100vw',
-    objectPosition: '46% 50%',
+    objectPosition: '38% 50%',
   },
 }

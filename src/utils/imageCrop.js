@@ -8,7 +8,7 @@ export const cropAspect = {
   wide: 'aspect-[3/2]',
   cinematic: 'aspect-[21/9] sm:aspect-[16/10] md:aspect-[21/9]',
   hero:
-    'aspect-[3/2] min-h-[min(88svh,36rem)] w-full md:min-h-[min(72vh,40rem)] lg:min-h-[min(85vh,52rem)]',
+    'aspect-[4/5] w-full min-h-[calc(100svh-4.75rem-env(safe-area-inset-top,0px))] md:aspect-[3/2] md:min-h-[min(72vh,40rem)] lg:min-h-[min(85vh,52rem)]',
   productPortrait: 'aspect-[4/5]',
   productSquare: 'aspect-square',
   galleryPortrait: 'aspect-[4/5]',

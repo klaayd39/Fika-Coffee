@@ -14,6 +14,9 @@ export default function Hero() {
       aria-labelledby="hero-heading"
       className="hero-bleed relative w-full max-w-none"
     >
+      <div
+        className="hero-bleed__stage relative w-full max-md:mt-[calc(4.75rem+env(safe-area-inset-top,0px))] md:mt-0"
+      >
       <figure className={`hero-bleed__figure relative overflow-hidden ${cropAspect.hero}`}>
         <picture className="absolute inset-0 block size-full">
           <source type="image/avif" srcSet={image.srcSetAvif} sizes={HERO_SIZES_ATTR} />
@@ -41,7 +44,7 @@ export default function Hero() {
         />
       </figure>
 
-      <div className="tone-inverse absolute inset-0 flex items-end pb-[max(3.5rem,env(safe-area-inset-bottom,0px))] pt-[max(6rem,calc(4.75rem+env(safe-area-inset-top,0px)))] sm:pb-16 sm:pt-28 md:items-center md:pb-20 md:pt-0">
+      <div className="tone-inverse absolute inset-0 flex items-end pb-[max(3.5rem,env(safe-area-inset-bottom,0px))] pt-8 sm:pb-16 md:items-center md:pb-20 md:pt-0">
         <div className="content-shell w-full">
           <div className="hero-copy max-w-2xl md:max-w-3xl">
             <p className="text-eyebrow text-cream-200/90">{hero.eyebrow}</p>
@@ -70,6 +73,7 @@ export default function Hero() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </section>
   )

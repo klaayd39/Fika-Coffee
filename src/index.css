@@ -264,11 +264,38 @@
   }
 }
 
-/* Homepage hero — true edge-to-edge on all breakpoints (not content-shell bleed). */
+/* Homepage hero — edge-to-edge; mobile uses svw + centering (reliable with overflow-x clip). */
 @utility hero-bleed {
-  width: 100vw;
-  max-width: 100vw;
-  margin-inline: calc(50% - 50vw);
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+}
+
+.hero-bleed__figure {
+  width: 100%;
+  max-width: none;
+}
+
+.hero-bleed__figure img {
+  max-width: none;
+}
+
+@media (max-width: 767px) {
+  .hero-bleed {
+    position: relative;
+    left: 50%;
+    width: 100svw;
+    max-width: 100svw;
+    transform: translateX(-50%);
+  }
+}
+
+@media (min-width: 768px) {
+  .hero-bleed {
+    width: 100vw;
+    max-width: 100vw;
+    margin-inline: calc(50% - 50vw);
+  }
 }
 
 /* Flat-lay / knolling — overhead objects aligned on a white table. */
@@ -625,6 +652,168 @@
   background: rgb(27 20 19 / 0.84);
 }
 
+/* Homepage “Our favorites” — capped portrait frames on small screens (not full-bleed 4:5). */
+.featured-favorite__frame {
+  width: 100%;
+  max-width: 15.25rem;
+}
+
+.featured-favorite__copy {
+  max-width: 22rem;
+}
+
+@media (min-width: 640px) {
+  .featured-favorite__frame {
+    max-width: 17rem;
+  }
+
+  .featured-favorite__copy {
+    max-width: 24rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .featured-favorite__frame {
+    max-width: none;
+  }
+
+  .featured-favorites__grid > li:first-child .featured-favorite__frame {
+    width: 100%;
+  }
+
+  .featured-favorites__grid > li:not(:first-child) .featured-favorite__frame {
+    max-width: 15.5rem;
+    max-height: 19.5rem;
+  }
+
+  .featured-favorite__copy {
+    max-width: none;
+  }
+
+  .featured-favorites__grid > li:not(:first-child) .featured-favorite__copy {
+    max-width: 26rem;
+  }
+}
+
+/* Swipeable coverflow gallery — center hero frame, scaled neighbors. */
+.gallery-coverflow {
+  padding-block: 2.5rem 2rem;
+}
+
+.gallery-coverflow__stage {
+  touch-action: pan-y;
+  user-select: none;
+  cursor: grab;
+  overflow: hidden;
+}
+
+.gallery-coverflow__stage:active {
+  cursor: grabbing;
+}
+
+.gallery-coverflow__track {
+  position: relative;
+  margin-inline: auto;
+  width: 100%;
+  height: min(68svh, 34rem);
+  max-height: 36rem;
+}
+
+.gallery-coverflow__slide {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transition:
+    transform 0.48s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.35s ease;
+  will-change: transform;
+}
+
+.gallery-coverflow__frame {
+  display: block;
+  width: min(11rem, 52vw);
+  border-radius: 1.125rem;
+  transition: box-shadow 0.35s ease;
+}
+
+.gallery-coverflow__frame--hero {
+  width: min(17.5rem, 78vw);
+  border-radius: 1.25rem;
+}
+
+.gallery-coverflow__slide--center .gallery-coverflow__frame {
+  box-shadow: 0 28px 56px -24px rgb(0 0 0 / 0.55);
+}
+
+.gallery-coverflow__slide[data-offset='0'] {
+  transform: translate(calc(-50% + var(--drag, 0px)), -50%) scale(1);
+}
+
+.gallery-coverflow__slide[data-offset='-1'] {
+  transform: translate(calc(-50% - clamp(7.25rem, 26vw, 11.5rem) + var(--drag, 0px)), -50%)
+    scale(0.86);
+}
+
+.gallery-coverflow__slide[data-offset='1'] {
+  transform: translate(calc(-50% + clamp(7.25rem, 26vw, 11.5rem) + var(--drag, 0px)), -50%)
+    scale(0.86);
+}
+
+.gallery-coverflow__slide[data-offset='-2'] {
+  transform: translate(calc(-50% - clamp(11.5rem, 40vw, 18rem) + var(--drag, 0px)), -50%) scale(0.72);
+  opacity: 0.82;
+}
+
+.gallery-coverflow__slide[data-offset='2'] {
+  transform: translate(calc(-50% + clamp(11.5rem, 40vw, 18rem) + var(--drag, 0px)), -50%) scale(0.72);
+  opacity: 0.82;
+}
+
+.gallery-coverflow__hint {
+  margin-top: 1.75rem;
+  padding-inline: var(--spacing-gutter);
+}
+
+@media (min-width: 768px) {
+  .gallery-coverflow {
+    padding-block: 3.5rem 2.5rem;
+  }
+
+  .gallery-coverflow__track {
+    height: min(72vh, 38rem);
+  }
+
+  .gallery-coverflow__frame {
+    width: 14rem;
+  }
+
+  .gallery-coverflow__frame--hero {
+    width: 22rem;
+  }
+
+  .gallery-coverflow__slide[data-offset='-1'] {
+    transform: translate(calc(-50% - 13.5rem + var(--drag, 0px)), -50%) scale(0.88);
+  }
+
+  .gallery-coverflow__slide[data-offset='1'] {
+    transform: translate(calc(-50% + 13.5rem + var(--drag, 0px)), -50%) scale(0.88);
+  }
+
+  .gallery-coverflow__slide[data-offset='-2'] {
+    transform: translate(calc(-50% - 22rem + var(--drag, 0px)), -50%) scale(0.74);
+  }
+
+  .gallery-coverflow__slide[data-offset='2'] {
+    transform: translate(calc(-50% + 22rem + var(--drag, 0px)), -50%) scale(0.74);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-coverflow__slide {
+    transition: none;
+  }
+}
+
 /* Homepage hero headline — display scale with balanced clamps. */
 .text-hero-display {
   font-family: var(--font-display);
@@ -640,6 +829,39 @@
     font-size: clamp(4rem, 6.5vw, 6.5rem);
     line-height: 0.98;
     letter-spacing: -0.035em;
+  }
+}
+
+/* Homepage hero — larger type than the global mobile scale. */
+.hero-copy .text-eyebrow {
+  font-size: 0.8125rem;
+  letter-spacing: 0.14em;
+}
+
+.hero-copy .text-hero-display {
+  font-size: clamp(2.875rem, 12.5vw, 4rem);
+  line-height: 1.02;
+}
+
+.hero-copy .text-body-lg {
+  font-size: 1.125rem;
+  line-height: 1.58;
+}
+
+@media (min-width: 768px) {
+  .hero-copy .text-eyebrow {
+    font-size: 0.9375rem;
+  }
+
+  .hero-copy .text-hero-display {
+    font-size: clamp(4.5rem, 7.5vw, 7.25rem);
+    line-height: 0.96;
+    letter-spacing: -0.038em;
+  }
+
+  .hero-copy .text-body-lg {
+    font-size: 1.3125rem;
+    line-height: 1.52;
   }
 }
 
@@ -722,6 +944,20 @@
     letter-spacing: -0.022em;
   }
 
+  .hero-copy .text-hero-display {
+    font-size: clamp(2.875rem, 12.5vw, 4rem);
+    line-height: 1.02;
+    letter-spacing: -0.024em;
+  }
+
+  .hero-copy .text-body-lg {
+    font-size: 1.125rem;
+  }
+
+  .hero-copy .text-eyebrow {
+    font-size: 0.8125rem;
+  }
+
   .text-display-xl {
     font-size: clamp(1.625rem, 7.25vw, 2.125rem);
     line-height: 1.16;
@@ -747,7 +983,7 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 5.5rem;
-    overflow-x: hidden;
+    overflow-x: clip;
     overflow-y: scroll;
     min-height: 100%;
   }
@@ -774,8 +1010,14 @@
     color: var(--color-ink);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
+    overflow-x: clip;
     min-height: 100%;
+  }
+
+  #main {
+    width: 100%;
+    max-width: none;
+    overflow-x: clip;
   }
 
   #root {

@@ -1,0 +1,19 @@
+[
+  {
+    "slug": "matcha-oat-latte",
+    "source": "matcha-oat-latte-source.jpg",
+    "alt": "Iced matcha oat latte in a clear glass with creamy oat milk at Fika Coffee."
+  },
+  {
+    "slug": "samyang-cheese-chicken",
+    "source": "samyang-cheese-chicken-source.jpg",
+    "alt": "Samyang noodles with cheese sauce and breaded chicken fillet in a pink bowl at Fika Coffee.",
+    "objectPosition": "center 42%"
+  },
+  {
+    "slug": "creamy-cheese-chicken-fillet",
+    "source": "creamy-cheese-chicken-fillet-source.jpg",
+    "alt": "Creamy cheese chicken fillet with golden crispy strips on a pink plate at Fika Coffee.",
+    "objectPosition": "center 45%"
+  }
+]

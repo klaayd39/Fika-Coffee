@@ -12,9 +12,9 @@ export default function Hero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="hero-bleed relative isolate overflow-hidden"
+      className="hero-bleed relative isolate"
     >
-      <figure className={`relative overflow-hidden ${cropAspect.hero}`}>
+      <figure className={`hero-bleed__figure relative overflow-hidden ${cropAspect.hero}`}>
         <picture className="absolute inset-0 block size-full">
           <source type="image/avif" srcSet={image.srcSetAvif} sizes={HERO_SIZES_ATTR} />
           <source type="image/webp" srcSet={image.srcSetWebp} sizes={HERO_SIZES_ATTR} />
@@ -43,22 +43,28 @@ export default function Hero() {
 
       <div className="tone-inverse absolute inset-0 flex items-end pb-[max(3.5rem,env(safe-area-inset-bottom,0px))] pt-[max(6rem,calc(4.75rem+env(safe-area-inset-top,0px)))] sm:pb-16 sm:pt-28 md:items-center md:pb-20 md:pt-0">
         <div className="content-shell w-full">
-          <div className="max-w-xl md:max-w-2xl">
+          <div className="hero-copy max-w-2xl md:max-w-3xl">
             <p className="text-eyebrow text-cream-200/90">{hero.eyebrow}</p>
 
             <h1
               id="hero-heading"
-              className="text-hero-display mt-4 max-w-[14ch] text-balance text-cream-50 drop-shadow-[0_2px_24px_rgb(27_20_19/0.55)] sm:mt-5 sm:max-w-[15ch] md:max-w-[12ch]"
+              className="text-hero-display mt-5 max-w-[16ch] text-balance text-cream-50 drop-shadow-[0_2px_24px_rgb(27_20_19/0.55)] sm:mt-6 sm:max-w-[17ch] md:max-w-[13ch]"
             >
               {hero.headline}
             </h1>
 
-            <p className="text-body-lg mt-5 max-w-md text-cream-200/95 md:mt-6">
+            <p className="text-body-lg mt-6 max-w-lg text-cream-200/95 sm:mt-7 md:max-w-xl">
               {hero.supporting}
             </p>
 
-            <div className="mt-8 flex w-full max-w-sm flex-col gap-3 sm:mt-9 sm:max-w-none sm:flex-row sm:items-center">
-              <Button as={Link} to="/menu" size="md" arrow className="tap-target w-full sm:w-auto">
+            <div className="mt-10 flex w-full max-w-md flex-col gap-4 sm:mt-11 sm:max-w-none sm:flex-row sm:items-center sm:gap-5">
+              <Button
+                as={Link}
+                to="/menu"
+                size="lg"
+                arrow
+                className="tap-target min-h-12 w-full px-7 text-sm sm:w-auto"
+              >
                 {hero.primaryCta}
               </Button>
               <Button
@@ -66,7 +72,7 @@ export default function Hero() {
                 to="#contact"
                 variant="secondaryInverse"
                 arrow
-                className="tap-target w-full sm:w-auto"
+                className="tap-target min-h-12 w-full text-sm sm:w-auto"
               >
                 {hero.secondaryCta}
               </Button>

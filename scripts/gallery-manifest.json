@@ -1,0 +1,121 @@
+[
+  {
+    "slug": "guest-at-window",
+    "source": "image-a3f18628-7882-4a95-8698-285baa610ea6.jpg",
+    "category": "people",
+    "alt": "A guest with iced matcha at a table by the pink window at Fika Coffee.",
+    "objectPosition": "center 45%"
+  },
+  {
+    "slug": "window-nook-guests",
+    "source": "image-40f648d2-e168-4568-821f-9ecc1dff317e.jpg",
+    "category": "people",
+    "alt": "Guests photographed through the café window and beside the pink plant nook.",
+    "objectPosition": "center 42%"
+  },
+  {
+    "slug": "cookies-roses-matcha",
+    "source": "image-1c4b54f0-55fc-415c-a54e-92444faef2bd.jpg",
+    "category": "food",
+    "alt": "Cookie gift boxes, a rose bouquet, and matcha being sifted at the counter.",
+    "objectPosition": "center 40%"
+  },
+  {
+    "slug": "polaroid-menu-team",
+    "source": "image-94e40c19-5000-421f-8ed9-3a5edaee0c20.jpg",
+    "category": "people",
+    "alt": "Polaroid-style photos of the drinks menu and Fika staff on shift.",
+    "objectPosition": "center 48%"
+  },
+  {
+    "slug": "ogs-matcha-team",
+    "source": "image-56281c60-e5c3-496a-87dd-7d5ba5b3cca2.jpg",
+    "category": "people",
+    "alt": "Matcha prep and the Fika team on the pink sofa — the OGs.",
+    "objectPosition": "center 38%"
+  },
+  {
+    "slug": "outdoor-fika-friends",
+    "source": "image-a0ac2c11-b761-4588-a180-e1cae88ef0f4.jpg",
+    "category": "people",
+    "alt": "Friends seated outdoors under the pink parasol at Fika Coffee.",
+    "objectPosition": "center 50%"
+  },
+  {
+    "slug": "pause-here-polaroids",
+    "source": "image-8427b304-05f7-4927-9ccb-a171ba55924e.jpg",
+    "category": "exterior",
+    "alt": "The Pause Here sign with polaroid photos of fika friends out front.",
+    "objectPosition": "center 35%"
+  },
+  {
+    "slug": "matcha-prep-counter",
+    "source": "image-c86c13ef-aa7d-4893-8926-985a840bbb1d.jpg",
+    "category": "drinks",
+    "alt": "Blue drink prep and matcha being poured at the Fika counter.",
+    "objectPosition": "center 45%"
+  },
+  {
+    "slug": "nursing-friends-drinks",
+    "source": "image-c92e9da3-32fe-49ac-af96-448d00e0d175.jpg",
+    "category": "people",
+    "alt": "Two nursing students smiling with iced matcha in Fika cups.",
+    "objectPosition": "center 40%"
+  },
+  {
+    "slug": "roses-bench-guest",
+    "source": "image-60ebf54e-76ad-4346-8fd6-c35a66fa2d85.jpg",
+    "category": "people",
+    "alt": "A guest on the pink bench with rose bouquets and iced coffee out front.",
+    "objectPosition": "center 42%"
+  },
+  {
+    "slug": "guests-pink-interior",
+    "source": "image-d6005c8a-285b-4f4e-83b1-38bb240fb841.jpg",
+    "category": "interior",
+    "alt": "Friends at a table and the pink mirror seating area inside Fika.",
+    "objectPosition": "center 45%"
+  },
+  {
+    "slug": "pause-here-mirror-wall",
+    "source": "image-9469deb8-f1b5-4029-9200-60c94d765e00.jpg",
+    "category": "exterior",
+    "alt": "The Pause Here wall, mirror, and lamp beside the entrance.",
+    "objectPosition": "center 32%"
+  },
+  {
+    "slug": "matcha-posters-storefront",
+    "source": "image-b6c33af3-5da5-47cb-95f1-6bb58e0e0168.jpg",
+    "category": "exterior",
+    "alt": "Matcha art prints inside and the lit storefront at night on San Isidro Extension.",
+    "objectPosition": "center 48%"
+  },
+  {
+    "slug": "polaroid-outdoor-pause-here",
+    "source": "image-406aabde-5a0e-47fb-b997-469f170043e6.jpg",
+    "category": "exterior",
+    "alt": "Pink polaroid prints of outdoor seating and the Pause Here wall at Fika.",
+    "objectPosition": "center 45%"
+  },
+  {
+    "slug": "polaroid-matcha-nook",
+    "source": "image-ae7c1975-0ce2-422e-b7cb-a6d70284120e.jpg",
+    "category": "interior",
+    "alt": "Polaroid photos of matcha art, the Pause Here sign, and the pink mirror nook.",
+    "objectPosition": "center 42%"
+  },
+  {
+    "slug": "fika-friends-collage",
+    "source": "image-7fdb04cc-52de-4a8c-86fb-df94ac731ba1.jpg",
+    "category": "people",
+    "alt": "Matcha at the table, guests outdoors at night, and friends sharing drinks at Fika.",
+    "objectPosition": "center center"
+  },
+  {
+    "slug": "matcha-moments-collage",
+    "source": "image-f0e8b525-5ca6-4702-9957-f61827c2d186.jpg",
+    "category": "people",
+    "alt": "Trailtop chair corner, matcha and pastries, and guests enjoying drinks at the counter.",
+    "objectPosition": "center center"
+  }
+]

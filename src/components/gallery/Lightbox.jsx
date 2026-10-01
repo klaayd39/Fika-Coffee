@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react'
-import { galleryCategoryLabel } from '../../data/gallery.js'
 import { cn } from '../../utils/cn.js'
 
 const controlClass =
@@ -32,7 +31,6 @@ export default function Lightbox({ photos, index, onClose, onStep }) {
     }
   }, [])
 
-  const label = photo ? galleryCategoryLabel(photo.category) : ''
   const position = photo ? `${index + 1} of ${photos.length}` : ''
 
   return (
@@ -85,8 +83,7 @@ export default function Lightbox({ photos, index, onClose, onStep }) {
               id="gallery-lightbox-caption"
               className="mt-4 max-w-xl text-left text-sm text-cream-100"
             >
-              <span className="text-label text-2xs text-cream-200">{label}</span>
-              <span className="mt-1 block text-base text-cream-50">{photo.alt}</span>
+              <span className="block text-base text-cream-50">{photo.alt}</span>
               <span className="mt-1 block text-cream-200" aria-live="polite">
                 {position}
               </span>

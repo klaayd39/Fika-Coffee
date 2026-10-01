@@ -259,7 +259,7 @@ export default function DesignSystem() {
           <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
             <Button arrow>Visit us</Button>
             <Button variant="secondary" arrow>
-              View menu
+              Our drinks
             </Button>
             <Button variant="outline" arrow>
               Directions
@@ -284,7 +284,7 @@ export default function DesignSystem() {
             <div className="mt-4 flex flex-wrap items-center gap-x-8 gap-y-4">
               <Button arrow>Visit us</Button>
               <Button variant="secondaryInverse" arrow>
-                View menu
+                Our drinks
               </Button>
               <Button variant="outlineInverse" arrow>
                 Directions

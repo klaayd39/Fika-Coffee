@@ -6,6 +6,8 @@ const productCrop = {
   'matcha-oat-latte': { cropAspect: 'productPortrait', objectPosition: 'center 48%' },
   'biscoff-oat-latte': { cropAspect: 'productPortrait', objectPosition: 'center 58%' },
   'cookie-box': { cropAspect: 'productSquare', objectPosition: 'center center' },
+  'samyang-cheese-chicken': { cropAspect: 'productPortrait', objectPosition: 'center 42%' },
+  'creamy-cheese-chicken-fillet': { cropAspect: 'productPortrait', objectPosition: 'center 45%' },
 }
 
 function image(slug, alt) {
@@ -37,7 +39,7 @@ export const products = [
     featured: true,
     image: image(
       'matcha-oat-latte',
-      'Oat milk poured over sifted matcha in a glass bowl at Fika Coffee.',
+      'Iced matcha oat latte in a clear glass with creamy oat milk at Fika Coffee.',
     ),
   },
   {
@@ -81,6 +83,32 @@ export const products = [
     image: null,
   },
   {
+    id: 'samyang-cheese-chicken',
+    name: 'Samyang with cheese and chicken fillet',
+    category: 'Food',
+    description: 'Spicy Samyang noodles with creamy cheese and crispy chicken fillet.',
+    price: null,
+    currency: 'PHP',
+    featured: true,
+    image: image(
+      'samyang-cheese-chicken',
+      'Samyang noodles with cheese sauce and breaded chicken fillet in a pink bowl at Fika Coffee.',
+    ),
+  },
+  {
+    id: 'creamy-cheese-chicken-fillet',
+    name: 'Creamy cheese chicken fillet',
+    category: 'Food',
+    description: 'Golden fried chicken fillet finished with rich creamy cheese sauce.',
+    price: null,
+    currency: 'PHP',
+    featured: true,
+    image: image(
+      'creamy-cheese-chicken-fillet',
+      'Creamy cheese chicken fillet with golden crispy strips on a pink plate at Fika Coffee.',
+    ),
+  },
+  {
     id: 'cookie-box',
     name: 'Cookie box',
     category: 'Treats',
@@ -97,8 +125,12 @@ export const products = [
 
 export const featuredProducts = products.filter((product) => product.featured)
 
-/** Homepage drinks band — order and count fixed for editorial layout (3 drinks). */
-const HOME_FEATURED_DRINK_IDS = ['matcha-oat-latte', 'biscoff-oat-latte', 'egg-coffee']
+/** Homepage favorites band — order and count fixed for editorial layout (3 items). */
+const HOME_FEATURED_DRINK_IDS = [
+  'matcha-oat-latte',
+  'samyang-cheese-chicken',
+  'creamy-cheese-chicken-fillet',
+]
 
 export const homeFeaturedDrinks = HOME_FEATURED_DRINK_IDS.map((id) =>
   products.find((product) => product.id === id),
@@ -111,12 +143,13 @@ export const menuSections = [
   { id: 'coffee', label: 'Coffee' },
   { id: 'matcha', label: 'Matcha' },
   { id: 'treats', label: 'Treats' },
+  { id: 'food', label: 'Food' },
 ].map((section) => ({
   ...section,
   products: products.filter((product) => product.category === section.label),
 }))
 
-export function formatPrice(product, missingLabel = 'See menu') {
+export function formatPrice(product, missingLabel = 'Ask in store') {
   if (product.price == null) return missingLabel
   const symbol = product.currency === 'PHP' ? '₱' : ''
   return `${symbol}${product.price}`

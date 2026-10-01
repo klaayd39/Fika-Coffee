@@ -5,9 +5,6 @@ import { BodyText, Button, DisplayTitle, ProductCard } from '../components/ui/in
 import { menuSections } from '../data/products.js'
 import { seoPages } from '../data/seo.js'
 
-/* On this page a missing price is not “See menu” — the reader is already here. */
-const MISSING_PRICE = 'Ask in store'
-
 const filters = [{ id: 'all', label: 'All' }, ...menuSections]
 
 export default function Menu() {
@@ -96,7 +93,7 @@ export default function Menu() {
                   <ul className="mt-10 grid list-none grid-cols-1 gap-y-16 sm:grid-cols-2 sm:gap-x-12 sm:gap-y-20 lg:mt-12 lg:gap-x-16 lg:gap-y-24">
                     {section.products.map((product) => (
                       <li key={product.id} id={product.id}>
-                        <ProductCard product={product} to={null} missingPrice={MISSING_PRICE} />
+                        <ProductCard product={product} />
                       </li>
                     ))}
                   </ul>

@@ -1,6 +1,5 @@
 import { cn } from '../../utils/cn.js'
 import { coverImageClass, galleryCropFrame, objectPositionStyle } from '../../utils/imageCrop.js'
-import { galleryCategoryLabel } from '../../data/gallery.js'
 
 const SIZE_ATTR = {
   large: '(min-width: 1024px) 58vw, (min-width: 640px) 90vw, calc(100vw - 3rem)',
@@ -23,7 +22,7 @@ export default function GalleryPhotoTile({
       id={`gallery-${photo.id}`}
       type="button"
       aria-haspopup="dialog"
-      aria-label={`${galleryCategoryLabel(photo.category)} — ${photo.alt}`}
+      aria-label={photo.alt}
       onClick={() => onOpen(photo.id)}
       className={cn(
         'block w-full text-left focus-visible:outline-offset-4',
@@ -53,9 +52,6 @@ export default function GalleryPhotoTile({
             className={coverImageClass}
           />
         </picture>
-      </span>
-      <span className="text-eyebrow mt-3 block">
-        {galleryCategoryLabel(photo.category)}
       </span>
     </button>
   )

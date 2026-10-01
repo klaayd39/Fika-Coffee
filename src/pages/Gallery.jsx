@@ -1,40 +1,30 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { buildEditorialSpreads } from '../components/gallery/editorialSpreads.js'
-import GalleryEditorialGrid from '../components/gallery/GalleryEditorialGrid.jsx'
+import GalleryCoverflow from '../components/gallery/GalleryCoverflow.jsx'
 import Lightbox from '../components/gallery/Lightbox.jsx'
 import Seo from '../components/seo/Seo.jsx'
-import { BodyText, Button, DisplayTitle } from '../components/ui/index.js'
 import { brand } from '../data/brand.js'
-import {
-  galleryCategories,
-  galleryCategoryLabel,
-  galleryPhotos,
-  photosInEditorialOrder,
-} from '../data/gallery.js'
+import { galleryPhotos, photosInEditorialOrder } from '../data/gallery.js'
 import { seoPages } from '../data/seo.js'
-
-const filters = [{ id: 'all', label: 'All' }, ...galleryCategories]
 
 export default function Gallery() {
   const [searchParams, setSearchParams] = useSearchParams()
-  const requested = searchParams.get('category')
-  const activeId = galleryCategories.some((category) => category.id === requested) ? requested : 'all'
   const photoId = searchParams.get('photo')
-  const filtered = galleryPhotos.filter(
-    (photo) => activeId === 'all' || photo.category === activeId,
-  )
-  const visible = useMemo(
-    () => (activeId === 'all' ? photosInEditorialOrder(filtered) : filtered),
-    [activeId, filtered],
-  )
-  const spreads = useMemo(() => buildEditorialSpreads(visible), [visible])
-  const openIndex = visible.findIndex((photo) => photo.id === photoId)
+  const photos = useMemo(() => photosInEditorialOrder(galleryPhotos), [])
+  const [activeIndex, setActiveIndex] = useState(0)
   const lastPhoto = useRef(photoId)
+
+  const openIndex = photos.findIndex((photo) => photo.id === photoId)
 
   useEffect(() => {
     if (photoId) lastPhoto.current = photoId
   }, [photoId])
+
+  useEffect(() => {
+    if (!photoId) return
+    const index = photos.findIndex((photo) => photo.id === photoId)
+    if (index >= 0) setActiveIndex(index)
+  }, [photoId, photos])
 
   useEffect(() => {
     if (photoId || !lastPhoto.current) return
@@ -45,21 +35,12 @@ export default function Gallery() {
     return () => window.clearTimeout(timer)
   }, [photoId])
 
-  const countLabel = `${visible.length} ${visible.length === 1 ? 'photo' : 'photos'}`
-  const status =
-    activeId === 'all' ? countLabel : `${countLabel} in ${galleryCategoryLabel(activeId)}`
-
   useEffect(() => {
-    if (requested && !galleryCategories.some((category) => category.id === requested)) {
-      setSearchParams({}, { replace: true })
-    }
-  }, [requested, setSearchParams])
-
-  function selectCategory(id) {
-    const next = new URLSearchParams()
-    if (id !== 'all') next.set('category', id)
+    if (!searchParams.get('category')) return
+    const next = new URLSearchParams(searchParams)
+    next.delete('category')
     setSearchParams(next, { replace: true })
-  }
+  }, [searchParams, setSearchParams])
 
   function openPhoto(id) {
     const next = new URLSearchParams(searchParams)
@@ -74,64 +55,43 @@ export default function Gallery() {
   }
 
   function step(delta) {
-    if (visible.length < 2 || openIndex < 0) return
-    const nextIndex = (openIndex + delta + visible.length) % visible.length
+    if (photos.length < 2 || openIndex < 0) return
+    const nextIndex = (openIndex + delta + photos.length) % photos.length
     const next = new URLSearchParams(searchParams)
-    next.set('photo', visible[nextIndex].id)
+    next.set('photo', photos[nextIndex].id)
     setSearchParams(next, { replace: true })
   }
 
   return (
-    <main className="bg-canvas">
+    <main className="tone-inverse min-h-dvh bg-espresso-950 text-cream-50">
       <Seo {...seoPages.gallery} />
-      <div className="content-shell page-top pb-10 md:pb-14">
-        <header className="max-w-prose">
-          <DisplayTitle as="h1" size="page">
-            Gallery
-          </DisplayTitle>
-          <BodyText large className="mt-6 max-w-prose">
-            Coffee, matcha at the counter, cookies to take home, guests in the pink room, and the
-            shop on {brand.address.street}.
-          </BodyText>
-        </header>
 
-        <div
-          role="group"
-          aria-label="Filter gallery by category"
-          className="mt-10 flex flex-wrap gap-x-4 gap-y-3 md:mt-16 md:gap-x-6"
-        >
-          {filters.map((filter) => {
-            const selected = filter.id === activeId
-            return (
-              <Button
-                key={filter.id}
-                variant={selected ? 'textActive' : 'text'}
-                aria-pressed={selected}
-                onClick={() => selectCategory(filter.id)}
-              >
-                {filter.label}
-              </Button>
-            )
-          })}
-        </div>
-
-        <p className="mt-5 text-sm text-ink-muted" aria-live="polite">
-          {status}
-        </p>
+      <div className="page-top content-shell pb-6 pt-2 text-center md:pb-8">
+        <h1 className="text-display-xl text-balance text-cream-50">Moments at Our Café</h1>
+        {brand.facebook ? (
+          <p className="mt-8">
+            <a
+              href={brand.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-label inline-flex min-h-11 items-center rounded-full border border-cream-100/35 bg-espresso-900/50 px-6 py-2 text-cream-100 transition-colors duration-300 hover:border-cream-100/60 hover:bg-espresso-900/80"
+            >
+              Share your moment
+              <span className="sr-only"> on Facebook (opens in a new tab)</span>
+            </a>
+          </p>
+        ) : null}
       </div>
 
-      <div className="band-edge bg-band-warm pb-16 pt-10 md:pb-40 md:pt-20">
-        <div className="content-shell-wide">
-          {visible.length ? (
-            <GalleryEditorialGrid spreads={spreads} onOpen={openPhoto} />
-          ) : (
-            <p className="text-ink-soft">No photos in this category yet.</p>
-          )}
-        </div>
-      </div>
+      <GalleryCoverflow
+        photos={photos}
+        activeIndex={activeIndex}
+        onActiveChange={setActiveIndex}
+        onOpenPhoto={openPhoto}
+      />
 
       <Lightbox
-        photos={visible}
+        photos={photos}
         index={openIndex >= 0 ? openIndex : null}
         onClose={closePhoto}
         onStep={step}

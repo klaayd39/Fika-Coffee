@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom'
 import LocalBusinessJsonLd from '../seo/LocalBusinessJsonLd.jsx'
 import Footer from './Footer.jsx'
 import Navbar from './Navbar.jsx'
+import RefreshHome from './RefreshHome.jsx'
 import RouteScroll from './RouteScroll.jsx'
 import ScrollReveal from './ScrollReveal.jsx'
 
@@ -9,6 +10,7 @@ import ScrollReveal from './ScrollReveal.jsx'
 export default function Layout() {
   return (
     <div className="flex min-h-dvh flex-col">
+      <RefreshHome />
       <RouteScroll />
       <ScrollReveal />
       <LocalBusinessJsonLd />

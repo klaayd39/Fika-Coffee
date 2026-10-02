@@ -1,5 +1,5 @@
-import { useLayoutEffect } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLayoutEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function navigationIsReload() {
   const [entry] = performance.getEntriesByType('navigation')
@@ -8,14 +8,20 @@ function navigationIsReload() {
   return legacy?.type === legacy?.TYPE_RELOAD
 }
 
-/** On browser refresh, always land on the homepage (no hash or deep route). */
+/** On browser refresh only, land on `/` (no hash or deep route). Runs once per load. */
 export default function RefreshHome() {
   const navigate = useNavigate()
-  const { pathname, hash, search } = useLocation()
+  const handledRef = useRef(false)
 
   useLayoutEffect(() => {
+    if (handledRef.current) return
+    handledRef.current = true
+
     if (!navigationIsReload()) return
+
+    const { pathname, hash, search } = window.location
     if (pathname === '/' && !hash && !search) return
+
     navigate({ pathname: '/', hash: '', search: '' }, { replace: true })
-  }, [navigate, pathname, hash, search])
+  }, [navigate])
 }

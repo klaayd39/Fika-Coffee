@@ -11,7 +11,7 @@ import {
   navLinkIsActive,
   resolveHomeNavSpy,
 } from '../../utils/navItems.js'
-import { scrollInstant } from '../../utils/scroll.js'
+import { getEffectiveScrollY, scrollInstant } from '../../utils/scroll.js'
 import Logo from './Logo.jsx'
 
 const desktopLinkBase =
@@ -40,7 +40,8 @@ export default function Navbar() {
     let frame = 0
 
     const syncScroll = () => {
-      setScrolled(window.scrollY > 8)
+      const scrollY = getEffectiveScrollY()
+      setScrolled(scrollY > 8)
       if (location.pathname === '/') {
         setHomeSpyHash(getHomeSpyHash())
         setNavOverHero(isHomeHeroBehindNav())
@@ -65,7 +66,7 @@ export default function Navbar() {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onScroll)
     }
-  }, [location.pathname, location.hash, location.key])
+  }, [location.pathname, location.hash, location.key, open])
 
   const homeNavSpy = resolveHomeNavSpy(location, homeSpyHash)
   const onInverseBand = homeNavSpy === 'gallery'
@@ -81,7 +82,12 @@ export default function Navbar() {
       return
     }
 
-    scrollLockSnapshotRef.current = window.scrollY
+    const scrollY = window.scrollY
+    scrollLockSnapshotRef.current = {
+      scrollY,
+      pathname: window.location.pathname,
+      hash: window.location.hash,
+    }
 
     const onKeyDown = (event) => {
       if (event.key === 'Escape') {
@@ -114,8 +120,12 @@ export default function Navbar() {
       document.body.style.left = ''
       document.body.style.right = ''
       document.body.style.width = ''
-      const scrollY = scrollLockSnapshotRef.current
-      if (scrollY != null) scrollInstant(scrollY)
+      const snap = scrollLockSnapshotRef.current
+      const samePlace =
+        snap &&
+        window.location.pathname === snap.pathname &&
+        window.location.hash === snap.hash
+      if (samePlace) scrollInstant(snap.scrollY)
       scrollLockSnapshotRef.current = null
     }
   }, [open])

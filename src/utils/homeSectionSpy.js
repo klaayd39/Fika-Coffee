@@ -1,3 +1,5 @@
+import { getEffectiveScrollY } from './scroll.js'
+
 /** Section ids on the homepage, in document order (top → bottom). */
 export const HOME_SECTION_IDS = ['gallery', 'about', 'contact']
 
@@ -37,7 +39,7 @@ export function isHomeHeroBehindNav() {
 export function getHomeSpyHash() {
   if (typeof window === 'undefined') return ''
 
-  if (window.scrollY < HOME_TOP_THRESHOLD_PX) return ''
+  if (getEffectiveScrollY() < HOME_TOP_THRESHOLD_PX) return ''
 
   const line = homeSpyMarkerLine()
   let current = ''
